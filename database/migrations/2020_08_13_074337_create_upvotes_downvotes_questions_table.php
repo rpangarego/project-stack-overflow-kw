@@ -18,7 +18,7 @@ class CreateUpvotesDownvotesQuestionsTable extends Migration
             $table->bigInteger('point');
 
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('user_id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->unsignedBigInteger('question_id');
             $table->foreign('question_id')->references('question_id')->on('questions');
