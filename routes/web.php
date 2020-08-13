@@ -17,5 +17,4 @@ Route::get('/', function () {
     return view('layouts.master');
 });
 
-// Route::get('/pertanyaan', 'PertanyaanController@index');
 Route::resource('forum' , 'ForumController');
