@@ -11,7 +11,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">{{$question->title}}</h5>
-                    <p class="card-text">Ditanyakan oleh: {{$question->author['name']}}</p>
+                    <p class="card-text">Ditanyakan oleh: </p>
                     <a href="#" class="btn btn-primary">Baca</a>
                 </div>
             </div>
