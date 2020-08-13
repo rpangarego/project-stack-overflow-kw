@@ -92,6 +92,8 @@ class ForumPertanyaanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $question = Question::where('question_id', $id)->delete();
+        
+        return redirect('/pertanyaan');
     }
 }
