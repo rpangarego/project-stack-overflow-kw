@@ -38,7 +38,14 @@ class ForumPertanyaanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $question = Question::create($request->all());
+        // $questions = new Question;
+        // $question->judul=$request["title"];
+        // $question->judul=$request["content"];
+        // $question->judul=$request["tags"];
+        // $question->save();
+
+        return redirect('/pertanyaan');
     }
 
     /**
