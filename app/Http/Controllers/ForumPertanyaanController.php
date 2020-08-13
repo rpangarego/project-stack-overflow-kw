@@ -69,7 +69,8 @@ class ForumPertanyaanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $question = Question::where('question_id', $id)->first();
+        return view('pertanyaan.edit', compact('question'));
     }
 
     /**
@@ -81,7 +82,19 @@ class ForumPertanyaanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+
+        $question = DB::table('questions')
+              ->where('question_id', $id)
+              ->update([
+                  'title' => $request->title,
+                  'content' => $request->content
+                ]);
+        
+        return redirect('/pertanyaan');
     }
 
     /**
