@@ -38,11 +38,10 @@ class ForumPertanyaanController extends Controller
      */
     public function store(Request $request)
     {
-        // $question = Question::create($request->all());
-        $questions = new Question;
-        $question->judul=$request["title"];
-        $question->judul=$request["content"];
-        $question->judul=$request["tags"];
+        $question = new Question;
+        $question->title = $request["title"];
+        $question->content = $request["content"];
+        $question->tags = $request["tags"];
         $question->user_id = Auth::id();
         $question->save();
 
