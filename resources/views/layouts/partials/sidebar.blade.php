@@ -13,15 +13,12 @@
 
     <!-- Nav Item - Halaman Index -->
     <li class="nav-item">
-<<<<<<< HEAD
       <a class="nav-link" href="/pertanyaan/create">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Buat Pertanyaan</span></a>
-=======
         <a class="nav-link" href="index.html">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Halaman Utama</span></a>
->>>>>>> 284a24efd047ab284da0d9c4cad95bb7ce972ed0
     </li>
 
     <!-- Divider -->

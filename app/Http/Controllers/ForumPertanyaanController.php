@@ -38,12 +38,13 @@ class ForumPertanyaanController extends Controller
      */
     public function store(Request $request)
     {
-        $question = Question::create($request->all());
-        // $questions = new Question;
-        // $question->judul=$request["title"];
-        // $question->judul=$request["content"];
-        // $question->judul=$request["tags"];
-        // $question->save();
+        // $question = Question::create($request->all());
+        $questions = new Question;
+        $question->judul=$request["title"];
+        $question->judul=$request["content"];
+        $question->judul=$request["tags"];
+        $question->user_id = Auth::id();
+        $question->save();
 
         return redirect('/pertanyaan');
     }
@@ -56,8 +57,9 @@ class ForumPertanyaanController extends Controller
      */
     public function show($id)
     {
-        $question = Question::find($id);
-        return view('questions.show', compact('question'));
+        $question = Question::where('question_id', $id)->first();
+        // dd($question);
+        return view('pertanyaan.show', compact('question'));
     }
 
     /**
