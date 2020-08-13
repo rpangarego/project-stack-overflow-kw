@@ -14,7 +14,7 @@
                 <h5 class="card-title">{{$question->title}}</h5>
                 <p class="card-text">Ditanyakan oleh: {{$question->user['name']}}</p>
                 <a href="{{route('pertanyaan.show', ['pertanyaan' => $question->question_id])}}"
-                    class="btn btn-primary">Baca</a>
+                    class="btn btn-primary px-4">Baca</a>
             </div>
         </div>
     </div>

@@ -10,6 +10,10 @@ use App\Question;
 
 class ForumPertanyaanController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth')->except(['index','show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -98,7 +102,7 @@ class ForumPertanyaanController extends Controller
                 ]);
 
         Alert::success('Berhasil', 'Ubah Pertanyaan Berhasil');
-        
+
         return redirect('/pertanyaan');
     }
 
@@ -113,7 +117,7 @@ class ForumPertanyaanController extends Controller
         $question = Question::where('question_id', $id)->delete();
 
         Alert::success('Berhasil', 'Hapus Pertanyaan Berhasil');
-        
+
         return redirect('/pertanyaan');
     }
 }
