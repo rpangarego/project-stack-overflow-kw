@@ -47,7 +47,8 @@ class ForumPertanyaanController extends Controller
      */
     public function show($id)
     {
-        //
+        $question = Question::find($id);
+        return view('questions.show', compact('question'));
     }
 
     /**
