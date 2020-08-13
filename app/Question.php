@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     protected $fillable = ['title' , 'content' , 'tags'];
-    public function author() {
-        return $this->belongsTo('App\User', 'id');
+    public function user() {
+        return $this->belongsTo('App\User', 'user_id');
     }
 }
