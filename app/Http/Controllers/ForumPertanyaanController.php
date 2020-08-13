@@ -15,7 +15,6 @@ class ForumPertanyaanController extends Controller
     public function index()
     {
         $questions = Question::all();
-        dd($questions);
         return view('pertanyaan.index', compact('questions'));
     }
 

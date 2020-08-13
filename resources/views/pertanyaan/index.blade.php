@@ -5,15 +5,17 @@
 @endsection
 
 @section('content')
+@foreach ($questions as $question)
     <div class="row">
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">{{$questions->title}}</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title">{{$question->title}}</h5>
+                    <p class="card-text">Ditanyakan oleh: {{$question->author['name']}}</p>
+                    <a href="#" class="btn btn-primary">Baca</a>
                 </div>
             </div>
         </div>
     </div>
+@endforeach
 @endsection
