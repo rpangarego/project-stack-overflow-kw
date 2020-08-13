@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layouts.master');
+    return view('pertanyaan.index');
 });
 
-Route::resource('pertanyaan' , 'ForumPertanyaanController');
-Route::resource('komentar' , 'ForumKomentarController');
-Route::resource('jawaban' , 'ForumJawabanController');
+Route::resource('pertanyaan', 'ForumPertanyaanController');
+Route::resource('komentar', 'ForumKomentarController');
+Route::resource('jawaban', 'ForumJawabanController');

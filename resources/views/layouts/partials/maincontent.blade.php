@@ -181,6 +181,10 @@
       </ul>
 
     </nav>
+
+    <div class="container-fluid">
+      @yield('content')
+    </div>
     <!-- End of Topbar -->
 
   </div>
