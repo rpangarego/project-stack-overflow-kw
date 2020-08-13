@@ -25,7 +25,7 @@ class ForumPertanyaanController extends Controller
      */
     public function create()
     {
-        //
+        return view('pertanyaan.formpertanyaan');
     }
 
     /**

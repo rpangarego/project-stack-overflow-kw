@@ -15,11 +15,10 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->bigIncrements('profile_id');
-            $table->string('name');
-            $table->string('email');
-            $table->string('password');
             $table->string('biodata')->nullable();
             $table->bigInteger('reputation_point');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
