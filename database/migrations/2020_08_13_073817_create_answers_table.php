@@ -18,8 +18,8 @@ class CreateAnswersTable extends Migration
             $table->string('content');
             $table->bigInteger('vote_point');
             
-            $table->unsignedBigInteger('profile_id');
-            $table->foreign('profile_id')->references('profile_id')->on('profiles');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('user_id')->on('users');
 
             $table->unsignedBigInteger('question_id');
             $table->foreign('question_id')->references('question_id')->on('questions');

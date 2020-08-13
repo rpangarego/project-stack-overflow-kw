@@ -17,8 +17,8 @@ class CreateCommentsAnswersTable extends Migration
             $table->bigIncrements('comment_id');
             $table->string('content');
 
-            $table->unsignedBigInteger('profile_id');
-            $table->foreign('profile_id')->references('profile_id')->on('profiles');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('user_id')->on('users');
 
             $table->unsignedBigInteger('answer_id');
             $table->foreign('answer_id')->references('answer_id')->on('answers');
