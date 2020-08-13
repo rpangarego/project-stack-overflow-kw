@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Question;
 
 class ForumPertanyaanController extends Controller
@@ -44,6 +45,8 @@ class ForumPertanyaanController extends Controller
         $question->tags = $request["tags"];
         $question->user_id = Auth::id();
         $question->save();
+
+        Alert::success('Berhasil', 'Buat Pertanyaan Berhasil');
 
         return redirect('/pertanyaan');
     }
@@ -93,6 +96,8 @@ class ForumPertanyaanController extends Controller
                   'title' => $request->title,
                   'content' => $request->content
                 ]);
+
+        Alert::success('Berhasil', 'Ubah Pertanyaan Berhasil');
         
         return redirect('/pertanyaan');
     }
@@ -106,6 +111,8 @@ class ForumPertanyaanController extends Controller
     public function destroy($id)
     {
         $question = Question::where('question_id', $id)->delete();
+
+        Alert::success('Berhasil', 'Hapus Pertanyaan Berhasil');
         
         return redirect('/pertanyaan');
     }
