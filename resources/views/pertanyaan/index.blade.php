@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    @foreach($questions as $question)
     <div class="row">
         <div class="col-sm-6">
             <div class="card">
@@ -16,4 +17,5 @@
             </div>
         </div>
     </div>
+    @endforeach
 @endsection
