@@ -17,4 +17,6 @@ Route::get('/', function () {
     return view('layouts.master');
 });
 
-Route::resource('forum' , 'ForumController');
+Route::resource('pertanyaan' , 'ForumPertanyaanController');
+Route::resource('komentar' , 'ForumKomentarController');
+Route::resource('jawaban' , 'ForumJawabanController');
