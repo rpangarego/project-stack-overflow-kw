@@ -20,3 +20,7 @@ Route::get('/pertanyaan', function () {
 Route::resource('pertanyaan', 'ForumPertanyaanController');
 Route::resource('komentar', 'ForumKomentarController');
 Route::resource('jawaban', 'ForumJawabanController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
