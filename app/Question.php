@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     public function author() {
-        return $this->belongsTo('App\Profile', 'profile_id');
+        return $this->belongsTo('App\User', 'id');
     }
 }
