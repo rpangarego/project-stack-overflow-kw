@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('pertanyaan.index');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::resource('pertanyaan', 'ForumPertanyaanController');
 Route::resource('komentar', 'ForumKomentarController');
