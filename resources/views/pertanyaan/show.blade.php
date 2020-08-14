@@ -53,8 +53,6 @@
 <p class="card-text">Ditanyakan pada: {{$question->created_at}}</p>
 <p class="card-text">Diperbarui pada: {{$question->updated_at}}</p>
 <p class="card-text">Ditanyakan oleh: {{$question->user['name']}}</p>
-
-<<<<<<< HEAD
                 <div class="buttons">
                     <a href="/pertanyaan" class="btn btn-secondary">Back</a>
                     <a href="{{$question->question_id}}/edit" class="btn btn-primary">Ubah</a>
@@ -73,7 +71,6 @@
             </div>
         </div>
     </div>
-=======
 <div class="buttons">
     <a href="/pertanyaan" class="btn btn-secondary">Back</a>
     <a href="{{$question->question_id}}/edit" class="btn btn-primary">Ubah</a>
@@ -85,7 +82,7 @@
 </div>
 </div>
 </div>
->>>>>>> 95df0bda164fe9e158b994a22c27b0910b35bce2
+
 </div>
 </div> --}}
 @endsection

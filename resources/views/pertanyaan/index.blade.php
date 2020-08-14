@@ -45,7 +45,7 @@
             &rarr;</a>
     </div>
 </div>
-
+<!-- 
 {{-- tampilan yg lama. kalo mau pake tinggal di uncomment trus hapus yg diatas --}}
 {{-- <div class="row mb-3">
     <div class="col-sm-6">
@@ -57,6 +57,6 @@
 </div>
 </div>
 </div>
-</div> --}}
+</div> --}} -->
 @endforeach
 @endsection
