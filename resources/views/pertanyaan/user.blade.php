@@ -6,8 +6,9 @@
 
 @section('content')
 
-@foreach($questions as $question)
 
+
+@forelse ($questions as $question)
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary"><span class="text-gray-700">{{$question->user['name']}}:</span>
@@ -49,19 +50,15 @@
             &rarr;</a>
     </div>
 </div>
-<!--
-{{-- tampilan yg lama. kalo mau pake tinggal di uncomment trus hapus yg diatas --}}
-{{-- <div class="row mb-3">
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{$question->title}}</h5>
-<p class="card-text">Ditanyakan oleh: {{$question->user['name']}}</p>
-<a href="{{route('pertanyaan.show', ['pertanyaan' => $question->question_id])}}" class="btn btn-primary px-4">Baca</a>
+@empty
+<div class="card shadow mb-4">
+    <div class="card-body text-center">
+        <p>Tidak ada data</p>
+        <div>
+            <a href="/pertanyaan/create" class="btn btn-primary">Buat Pertanyaan</a>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-</div> --}} -->
+@endforelse
 
-@endforeach
 @endsection

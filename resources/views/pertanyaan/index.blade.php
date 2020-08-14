@@ -6,8 +6,7 @@
 
 @section('content')
 
-@foreach($questions as $question)
-
+@forelse ($questions as $question)
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary"><span class="text-gray-700">{{$question->user['name']}}:</span>
@@ -49,5 +48,15 @@
             &rarr;</a>
     </div>
 </div>
-@endforeach
+@empty
+<div class="card shadow mb-4">
+    <div class="card-body text-center">
+        <p>Tidak ada data</p>
+        <div>
+            <a href="/pertanyaan/create" class="btn btn-primary">Buat Pertanyaan</a>
+        </div>
+    </div>
+</div>
+@endforelse
+
 @endsection
