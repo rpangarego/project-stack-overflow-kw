@@ -18,9 +18,7 @@
                 <h6 class="m-0 font-weight-bold text-primary"><span class="text-gray-700">Pertanyaan:
                     </span>{{$question->title}}</h6>
 
-                @guest
-                <div></div>
-                @else
+                @auth
                 @if ($question->user_id == Auth::user()->id)
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
@@ -39,7 +37,7 @@
                     </div>
                 </div>
                 @endif
-                @endguest
+                @endauth
 
             </div>
             <!-- Card Body -->
@@ -48,21 +46,29 @@
                 <div class="text-muted" style="font-size: 14px">Ditanyakan oleh: {{$question->user['name']}}</div>
                 <hr>
                 <div>
-                    <div class="buttons float-right">
+                    <div class="buttons float-right row">
                         {{-- upvote button --}}
-                        <a href="#" class="btn btn-light btn-icon-split btn-sm mx-1">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-arrow-up"></i>
-                            </span>
-                            <span class="text">Upvote</span>
-                        </a>
+                        <form action="/upvote/pertanyaan" method="POST">
+                            @csrf
+                            <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                            <input type="hidden" name="user_id" value="{{$question->user['id']}}">
+                            <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span
+                                    class="icon text-white-50">
+                                    <i class="fas fa-arrow-up"></i>
+                                </span>
+                                <span class="text">Upvote</span></button>
+                        </form>
                         {{-- downvote button --}}
-                        <a href="#" class="btn btn-light btn-icon-split btn-sm mx-1">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-arrow-down"></i>
-                            </span>
-                            <span class="text">Downvote</span>
-                        </a>
+                        <form action="/downvote/pertanyaan" method="POST">
+                            @csrf
+                            <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                            <input type="hidden" name="user_id" value="{{$question->user['id']}}">
+                            <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span
+                                    class="icon text-white-50">
+                                    <i class="fas fa-arrow-down"></i>
+                                </span>
+                                <span class="text">Downvote</span></button>
+                        </form>
                         {{-- comment button --}}
                         <a href="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan/create"
                             class="btn btn-light btn-icon-split btn-sm mx-1">
@@ -88,9 +94,7 @@
                         <div class="d-flex flex-row align-items-center justify-content-between">
                             <h6 class="m-0 font-weight-bold text-primary">{{$comment->user['name']}}: </h6>
 
-                            @guest
-                            <div></div>
-                            @else
+                            @auth
                             @if ($comment->user_id == Auth::user()->id)
                             <div class="delete-button">
                                 <form action="/pertanyaan/{{$question->question_id}}/komentarpertanyaan" method="post"
@@ -102,7 +106,7 @@
                                 </form>
                             </div>
                             @endif
-                            @endguest
+                            @endauth
 
                         </div>
 
