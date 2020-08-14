@@ -53,9 +53,14 @@
                     @csrf
                     <input type="hidden" name="question_id" value="{{$question->question_id}}">
                     <input type="hidden" name="user_id" value="{{$question->user['id']}}">
-                    <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1" id="upvote"
-                        onclick="disableBtn(false)">
-                        <span class="icon text-white-50">
+                    <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1" @foreach ($voteQuestions as
+                        $vote) @if ($question->question_id == $vote->question_id && $vote->user_id == Auth::id() &&
+                        $vote->point == 1)
+                        disabled
+                        @endif
+                        @endforeach
+
+                        ><span class="icon text-white-50">
                             <i class="fas fa-arrow-up"></i>
                         </span>
                         <span class="text">Upvote</span></button>
@@ -65,9 +70,12 @@
                     @csrf
                     <input type="hidden" name="question_id" value="{{$question->question_id}}">
                     <input type="hidden" name="user_id" value="{{$question->user['id']}}">
-                    <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1" id="downvote"
-                        onclick="disableBtn(false)">
-                        <span class="icon text-white-50">
+                    <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1" @foreach ($voteQuestions as
+                        $vote) @if ($question->question_id == $vote->question_id && $vote->user_id == Auth::id() &&
+                        $vote->point == 0)
+                        disabled
+                        @endif
+                        @endforeach><span class="icon text-white-50">
                             <i class="fas fa-arrow-down"></i>
                         </span>
                         <span class="text">Downvote</span></button>

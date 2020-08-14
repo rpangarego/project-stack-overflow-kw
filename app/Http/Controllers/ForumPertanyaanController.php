@@ -25,7 +25,8 @@ class ForumPertanyaanController extends Controller
     public function index()
     {
         $questions = Question::all();
-        return view('pertanyaan.index', ['questions' => $questions]);
+        $voteQuestions = UpvoteDownvoteQuestion::all();
+        return view('pertanyaan.index', compact('questions','voteQuestions'));
     }
 
     /**
@@ -67,7 +68,8 @@ class ForumPertanyaanController extends Controller
     {
         $question = Question::where('question_id', $id)->first();
         $answers = Answer::where('question_id', $id)->get();
-        return view('pertanyaan.show', compact('question' , 'answers'));
+        $voteQuestions = UpvoteDownvoteQuestion::all();
+        return view('pertanyaan.show', compact('question' , 'answers', 'voteQuestions'));
     }
 
     /**
