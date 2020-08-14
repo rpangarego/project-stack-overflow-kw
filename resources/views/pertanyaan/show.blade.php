@@ -65,8 +65,8 @@
                     </div>
                 </div>
                 <a href="/pertanyaan" class="d-block"> &larr; Kembali</a>
-
-{{-- <div class="row">
+                <hr>
+                {{-- <div class="row">
     <div class="col-6">
         <h1 class="mt-3">Detail Pertanyaan</h1>
         <div class="card">
@@ -97,17 +97,19 @@
                     <div class="text-gray-700">Jawaban:</div>
                 </h6>
                 @foreach($answers as $answer)
-                    <div class="card bg-light mb-3" style="max-width: 53rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">{{$answer->user['name']}}</h5>
-                            <p class="card-text">{!!$answer->content!!}</p>
-                            <form action="/jawaban/{{$answer->answer_id}}" method="post" class="d-inline">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="btn btn-danger">Hapus</button>
-                            </form>
-                        </div>
+                <div class="card bg-light mb-3" style="max-width: 53rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{$answer->user['name']}}</h5>
+                        <p class="card-text">{!!$answer->content!!}</p>
+                        {{-- <input type="text" value="/jawaban/{{$answer->answer_id}}"> --}}
+                        <form action="/jawaban/{{$answer->answer_id}}" method="post" class="d-inline">
+                            @csrf
+                            @method('delete')
+                            <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                            <button type="submit" class="btn btn-danger">Hapus</button>
+                        </form>
                     </div>
+                </div>
                 @endforeach
                 <form action="/jawaban" method="POST">
                     @csrf
@@ -122,18 +124,9 @@
                     <button type="submit" class="btn btn-primary">Submit Jawaban</button>
                 </form>
             </div>
-           
+
         </div>
     </div>
-<div class="buttons">
-    <a href="/pertanyaan" class="btn btn-secondary">Back</a>
-    <a href="{{$question->question_id}}/edit" class="btn btn-primary">Ubah</a>
-    <form action="/pertanyaan/{{$question->question_id}}" method="post" class="d-inline">
-        @method('delete')
-        @csrf
-        <button type="submit" class="btn btn-danger">Hapus</button>
-    </form>
-</div>
 </div>
 </div>
 
