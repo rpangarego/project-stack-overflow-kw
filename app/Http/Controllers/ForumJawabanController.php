@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class ForumJawabanController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth')->only(['store','destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +22,13 @@ class ForumJawabanController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
 
+=======
+        $answers = Answer::all();
+        // dd($answers->all());
+        return view('pertanyaan.show', compact('answers'));
+>>>>>>> 88db02274b84d879d7f41c98fe0b405dcfec11ac
     }
 
     /**

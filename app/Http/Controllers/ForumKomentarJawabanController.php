@@ -11,6 +11,9 @@ use App\Answer;
 
 class ForumKomentarJawabanController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth')->except(['index','show']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -44,7 +47,7 @@ class ForumKomentarJawabanController extends Controller
 
         $comment = new CommentAnswer();
         $comment->content = $request["content"];
-        $comment->naswer_id = $request["answer_id"];
+        $comment->answer_id = $request["answer_id"];
         $comment->user_id = Auth::id();
         $comment->save();
 

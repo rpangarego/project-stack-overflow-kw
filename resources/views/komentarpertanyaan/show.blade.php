@@ -17,6 +17,11 @@
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary"><span class="text-gray-700">Pertanyaan:
                     </span>{{$question->title}}</h6>
+
+                @guest
+                <div></div>
+                @else
+                @if ($question->user_id == Auth::user()->id)
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -33,6 +38,9 @@
                         </form>
                     </div>
                 </div>
+                @endif
+                @endguest
+
             </div>
             <!-- Card Body -->
             <div class="card-body">
@@ -79,6 +87,11 @@
                     <div class="card-body">
                         <div class="d-flex flex-row align-items-center justify-content-between">
                             <h6 class="m-0 font-weight-bold text-primary">{{$comment->user['name']}}: </h6>
+
+                            @guest
+                            <div></div>
+                            @else
+                            @if ($comment->user_id == Auth::user()->id)
                             <div class="delete-button">
                                 <form action="/pertanyaan/{{$question->question_id}}/komentarpertanyaan" method="post"
                                     class="d-inline">
@@ -88,6 +101,9 @@
                                     <button type="submit" class="btn btn-sm text-danger">Hapus</button>
                                 </form>
                             </div>
+                            @endif
+                            @endguest
+
                         </div>
 
                         {!!$comment->content!!}

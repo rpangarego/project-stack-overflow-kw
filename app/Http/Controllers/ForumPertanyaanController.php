@@ -121,4 +121,9 @@ class ForumPertanyaanController extends Controller
 
         return redirect('/pertanyaan');
     }
+
+    public function pertanyaanku(){
+        $questions = Question::where('user_id',Auth::id())->get();
+        return view('pertanyaan.user', ['questions' => $questions]);
+    }
 }

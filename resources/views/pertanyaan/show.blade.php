@@ -17,6 +17,12 @@
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary"><span class="text-gray-700">Pertanyaan:
                     </span>{{$question->title}}</h6>
+
+                {{-- Auth Action Button --}}
+                @guest
+                <div></div>
+                @else
+                @if ($question->user_id == Auth::user()->id)
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -33,6 +39,9 @@
                         </form>
                     </div>
                 </div>
+                @endif
+                @endguest
+
             </div>
             <!-- Card Body -->
             <div class="card-body">
@@ -45,7 +54,7 @@
                         <form action="/upvote/pertanyaan" method="POST">
                             @csrf
                             <input type="hidden" name="question_id" value="{{$question->question_id}}">
-                            <input type="hidden" name="" value="{{$question->question_id}}">
+                            <input type="hidden" name="user_id" value="{{$question->user['id']}}">
                             <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span
                                     class="icon text-white-50">
                                     <i class="fas fa-arrow-up"></i>
@@ -56,7 +65,7 @@
                         <form action="/downvote/pertanyaan" method="POST">
                             @csrf
                             <input type="hidden" name="question_id" value="{{$question->question_id}}">
-                            <input type="hidden" name="" value="{{$question->question_id}}">
+                            <input type="hidden" name="user_id" value="{{$question->user['id']}}">
                             <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span
                                     class="icon text-white-50">
                                     <i class="fas fa-arrow-up"></i>
@@ -87,6 +96,10 @@
                     <div class="card-body">
                         <div class="d-flex flex-row align-items-center justify-content-between">
                             <h6 class="m-0 font-weight-bold text-primary">{{$answer->user['name']}}: </h6>
+                            @guest
+                            <div></div>
+                            @else
+                            @if ($question->user_id == Auth::user()->id)
                             <div class="delete-button">
                             <a href="/jawaban/{{$answer->answer_id}}/edit" class="btn btn-sm text-primary">Edit</a>
                                 <form action="/jawaban/{{$answer->answer_id}}" method="post" class="d-inline">
@@ -96,8 +109,9 @@
                                     <button type="submit" class="btn btn-sm text-danger">Hapus</button>
                                 </form>
                             </div>
+                            @endif
+                            @endguest
                         </div>
-
                         {!!$answer->content!!}
                     </div>
                 </div>
@@ -112,7 +126,6 @@
                 <form action="/jawaban" method="POST">
                     @csrf
                     <input type="hidden" value="{{$question->question_id}}" name="question_id">
-
                     <div class="form-group">
                         <textarea name="content" id="isi"
                             class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
@@ -123,9 +136,7 @@
         </div>
     </div>
 </div>
-</div>
 
-</div>
 @endsection
 
 

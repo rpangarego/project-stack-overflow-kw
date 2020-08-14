@@ -40,7 +40,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
                 <a class="collapse-item" href="/pertanyaan/create">Buat Pertanyaan</a>
-                <a class="collapse-item" href="#">Pertanyaan-ku</a>
+                <a class="collapse-item" href="/pertanyaanku">Pertanyaan-ku</a>
             </div>
         </div>
     </li>
@@ -50,7 +50,7 @@
         {{-- <a class="nav-link" href="/pertanyaan/create">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Buat Pertanyaan</span></a> --}}
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="/profil">
             <i class="fas fa-fw fa-wrench"></i>
             <span>Profil Pengguna</span></a>
     </li>
