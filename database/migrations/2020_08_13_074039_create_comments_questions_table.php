@@ -15,7 +15,7 @@ class CreateCommentsQuestionsTable extends Migration
     {
         Schema::create('comments_questions', function (Blueprint $table) {
             $table->bigIncrements('comment_id');
-            $table->string('content');
+            $table->longText('content');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
