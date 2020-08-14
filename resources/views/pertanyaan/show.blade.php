@@ -101,6 +101,7 @@
                             @else
                             @if ($question->user_id == Auth::user()->id)
                             <div class="delete-button">
+                            <a href="/jawaban/{{$answer->answer_id}}/edit" class="btn btn-sm text-primary">Edit</a>
                                 <form action="/jawaban/{{$answer->answer_id}}" method="post" class="d-inline">
                                     @csrf
                                     @method('delete')

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Answer;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class ForumJawabanController extends Controller
 {
@@ -20,9 +22,13 @@ class ForumJawabanController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
+
+=======
         $answers = Answer::all();
         // dd($answers->all());
         return view('pertanyaan.show', compact('answers'));
+>>>>>>> 88db02274b84d879d7f41c98fe0b405dcfec11ac
     }
 
     /**
@@ -73,7 +79,8 @@ class ForumJawabanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $answers = Answer::where('answer_id' , $id);
+        return view('jawaban.formedit' , compact('answers'));
     }
 
     /**
@@ -85,7 +92,12 @@ class ForumJawabanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $answers = Answer::where('answer_id' , $id);
+
+        $answers->content = $request["content"];
+        $answers->save();
+
+        return redirect('/pertanyaan/'.$request["question_id"]);
     }
 
     /**
