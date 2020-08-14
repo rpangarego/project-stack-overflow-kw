@@ -25,21 +25,16 @@
                     </span>
                     <span class="text">Upvote</span></button>
             </form>
-
-            {{-- <a href="/pertanyaan/{{$question->question_id}}" class="btn btn-light btn-icon-split btn-sm mx-1">
-            <span class="icon text-white-50">
-                <i class="fas fa-arrow-up"></i>
-            </span>
-            <span class="text">Upvote</span>
-            </a> --}}
-
             {{-- downvote button --}}
-            <a href="#" class="btn btn-light btn-icon-split btn-sm mx-1">
-                <span class="icon text-white-50">
-                    <i class="fas fa-arrow-down"></i>
-                </span>
-                <span class="text">Downvote</span>
-            </a>
+            <form action="/downvote/pertanyaan" method="POST">
+                @csrf
+                <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                <input type="hidden" name="" value="{{$question->question_id}}">
+                <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span class="icon text-white-50">
+                        <i class="fas fa-arrow-up"></i>
+                    </span>
+                    <span class="text">Downvote</span></button>
+            </form>
             {{-- comment button --}}
             <a href="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan" class="btn btn-light btn-icon-split btn-sm mx-1">
                 <span class="icon text-white-50">
@@ -53,7 +48,7 @@
             &rarr;</a>
     </div>
 </div>
-<!-- 
+<!--
 {{-- tampilan yg lama. kalo mau pake tinggal di uncomment trus hapus yg diatas --}}
 {{-- <div class="row mb-3">
     <div class="col-sm-6">

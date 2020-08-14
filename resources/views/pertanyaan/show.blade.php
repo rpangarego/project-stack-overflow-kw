@@ -90,14 +90,12 @@
                     <input type="hidden" value="{{$question->question_id}}" name="question_id">
 
                     <div class="form-group">
-
                         <textarea name="content" id="isi"
                             class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit Jawaban</button>
                 </form>
             </div>
-
         </div>
     </div>
 </div>

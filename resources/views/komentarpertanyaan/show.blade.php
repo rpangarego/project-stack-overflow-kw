@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('title')
-    <title>Stack Overflow</title>
+<title>Stack Overflow</title>
 @endsection
 
 @push('script-head')
-    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 @endpush
 
 @section('content')
@@ -56,7 +56,8 @@
                             <span class="text">Downvote</span>
                         </a>
                         {{-- comment button --}}
-                        <a href="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan/create" class="btn btn-light btn-icon-split btn-sm mx-1">
+                        <a href="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan/create"
+                            class="btn btn-light btn-icon-split btn-sm mx-1">
                             <span class="icon text-white-50">
                                 <i class="far fa-comment"></i>
                             </span>
@@ -74,18 +75,20 @@
                 @foreach ($comments as $comment)
                 <div class="card-body">
                     @if ($comment->comment_id == null)
-                        <p><span class="text-gray-700"><b>Tidak ada komentar</b></p>
-                        <hr>
+                    <p><span class="text-gray-700"><b>Tidak ada komentar</b></p>
+                    <hr>
                     @else
-                        <p><span class="text-gray-700">{{$comment->user['name']}} mengomentari: <b>{!! $comment->content !!}</b></span></p>
-                        <br>
-                        <form action="/pertanyaan/{{$question->question_id}}/komentarpertanyaan" method="post" class="d-inline">
-                            @method('delete')
-                            @csrf
-                            <input type="hidden" name="comment_id" value="{{$comment->comment_id}}">
-                            <button type="submit" class="btn btn-danger">Hapus</button>
-                        </form>
-                        <hr>
+                    <p><span class="text-gray-700">{{$comment->user['name']}} mengomentari: <b>{!! $comment->content
+                                !!}</b></span></p>
+                    <br>
+                    <form action="/pertanyaan/{{$question->question_id}}/komentarpertanyaan" method="post"
+                        class="d-inline">
+                        @method('delete')
+                        @csrf
+                        <input type="hidden" name="comment_id" value="{{$comment->comment_id}}">
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </form>
+                    <hr>
                     @endif
                 </div>
                 @endforeach

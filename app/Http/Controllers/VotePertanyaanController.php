@@ -11,36 +11,26 @@ use App\UpvoteDownvoteQuestion;
 class VotePertanyaanController extends Controller
 {
     public function upvote(Request $request){
-        // dd($request->all());
 
-// If there's a flight from Oakland to San Diego, set the price to $99.
-// If no matching model exists, create one.
-// $flight = App\Flight::updateOrCreate(
-//     ['departure' => 'Oakland', 'destination' => 'San Diego'],
-//     ['price' => 99, 'discounted' => 1]
-// );
+        $vote = UpvoteDownvoteQuestion::updateOrCreate(
+        ['user_id' => Auth::id(), 'question_id' => $request["question_id"]],
+        ['point' => 1]);
 
-        $vote = UpvoteDownvoteQuestion::where('question_id',$request["question_id"]);
+        Alert::success('Berhasil', 'Upvote berhasil');
 
-        if ($vote::all()) {
-            return 'true';
-        }else{
-            return 'false';
-        }
+        $link = "/pertanyaan/".$request["question_id"];
+        return redirect($link);
+    }
 
-        // $vote = UpvoteDownvoteQuestion::updateOrCreate(
-        //     ['user_id' => Auth::id(), 'question_id' => $request["question_id"]],
-        //     ['point'] =>
-        // )
+    public function downvote(Request $request){
 
-        // $vote = new UpvoteDownvoteQuestion;
-        // $vote->point = ;
-        // $vote->user_id = Auth::id();
-        // $vote->question_id = $request["tags"];
-        // $vote->save();
+        $vote = UpvoteDownvoteQuestion::updateOrCreate(
+        ['user_id' => Auth::id(), 'question_id' => $request["question_id"]],
+        ['point' => 0]);
 
-        // Alert::success('Berhasil', 'Upvote berhasil');
+        Alert::success('Berhasil', 'Downvote berhasil');
 
-        // return redirect('/pertanyaan');
+        $link = "/pertanyaan/".$request["question_id"];
+        return redirect($link);
     }
 }
