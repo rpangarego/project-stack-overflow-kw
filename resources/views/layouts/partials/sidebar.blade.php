@@ -16,7 +16,7 @@
         {{-- <a class="nav-link" href="/pertanyaan/create">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Buat Pertanyaan</span></a> --}}
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{route('pertanyaan.index')}}">
             <i class="fas fa-fw fa-folder"></i>
             <span>Halaman Utama</span></a>
     </li>

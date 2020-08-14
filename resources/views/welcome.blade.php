@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Stack Overflow KW</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -88,7 +88,7 @@
             </div>
 
             <div>
-                <h3>Selamat Datang! <a href="{{ route('pertanyaan.index')}}">Lihat Pertanyaan</a></h3>
+                <h3><a href="{{ route('pertanyaan.index')}}">View Questions</a></h3>
             </div>
 
             {{-- <div class="links">
