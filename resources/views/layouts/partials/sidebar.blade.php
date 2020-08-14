@@ -50,7 +50,7 @@
         {{-- <a class="nav-link" href="/pertanyaan/create">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Buat Pertanyaan</span></a> --}}
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="/profil">
             <i class="fas fa-fw fa-wrench"></i>
             <span>Profil Pengguna</span></a>
     </li>

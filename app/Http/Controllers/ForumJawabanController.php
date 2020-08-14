@@ -21,7 +21,7 @@ class ForumJawabanController extends Controller
     public function index()
     {
         $answers = Answer::all();
-        dd($answers->all());
+        // dd($answers->all());
         return view('pertanyaan.show', compact('answers'));
     }
 

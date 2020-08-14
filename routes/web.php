@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,11 @@ use Illuminate\Support\Facades\Auth;
 // Route halaman utama
 Route::get('/', function(){
     return view('welcome');
+});
+
+Route::get('/profil', function(){
+    $user = User::find(Auth::id());
+    return view('user', compact('user'));
 });
 
 // Route PertanyaanController

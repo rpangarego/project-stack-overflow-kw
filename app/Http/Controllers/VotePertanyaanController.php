@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\UpvoteDownvoteQuestion;
+use App\User;
 
 class VotePertanyaanController extends Controller
 {
@@ -15,10 +16,15 @@ class VotePertanyaanController extends Controller
     }
 
     public function upvote(Request $request){
-
+        // tambah ke tabel upvote_downvote_question
         $vote = UpvoteDownvoteQuestion::updateOrCreate(
         ['user_id' => Auth::id(), 'question_id' => $request["question_id"]],
         ['point' => 1]);
+
+        // menambahkan 10 point ke user yg bertanya
+        $user = User::find($request["user_id"]);
+        $user["reputation_point"] = $user->reputation_point + 10;
+        $user->save();
 
         Alert::success('Berhasil', 'Upvote berhasil');
 
@@ -32,8 +38,22 @@ class VotePertanyaanController extends Controller
         ['user_id' => Auth::id(), 'question_id' => $request["question_id"]],
         ['point' => 0]);
 
-        Alert::success('Berhasil', 'Downvote berhasil');
+        // cek poin reputasi user
+        $user = User::find(Auth::id());
+        // dd($user);
+        if ($user->reputation_point < 15) {
+            Alert::error('Gagal', 'Minimal reputasi point 15 untuk melakukan downvote');
+            $link = "/pertanyaan/".$request["question_id"];
+            return redirect($link);
+            exit();
+        }
 
+        // mengurangi 1 point ke user yg memberikan downvote
+        $user = User::find(Auth::id());
+        $user["reputation_point"] = $user->reputation_point - 1;
+        $user->save();
+
+        Alert::success('Berhasil', 'Downvote berhasil');
         $link = "/pertanyaan/".$request["question_id"];
         return redirect($link);
     }

@@ -54,7 +54,7 @@
                         <form action="/upvote/pertanyaan" method="POST">
                             @csrf
                             <input type="hidden" name="question_id" value="{{$question->question_id}}">
-                            <input type="hidden" name="" value="{{$question->question_id}}">
+                            <input type="hidden" name="user_id" value="{{$question->user['id']}}">
                             <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span
                                     class="icon text-white-50">
                                     <i class="fas fa-arrow-up"></i>
@@ -65,7 +65,7 @@
                         <form action="/downvote/pertanyaan" method="POST">
                             @csrf
                             <input type="hidden" name="question_id" value="{{$question->question_id}}">
-                            <input type="hidden" name="" value="{{$question->question_id}}">
+                            <input type="hidden" name="user_id" value="{{$question->user['id']}}">
                             <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span
                                     class="icon text-white-50">
                                     <i class="fas fa-arrow-up"></i>
