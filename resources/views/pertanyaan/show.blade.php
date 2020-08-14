@@ -101,7 +101,6 @@
                     <div class="card-body">
                         <h5 class="card-title">{{$answer->user['name']}}</h5>
                         <p class="card-text">{!!$answer->content!!}</p>
-                        {{-- <input type="text" value="/jawaban/{{$answer->answer_id}}"> --}}
                         <form action="/jawaban/{{$answer->answer_id}}" method="post" class="d-inline">
                             @csrf
                             @method('delete')
@@ -116,15 +115,12 @@
                     <input type="hidden" value="{{$question->question_id}}" name="question_id">
 
                     <div class="form-group">
-                        {{-- <label for="content" class="text-grey-700">Jawaban</label> --}}
-
                         <textarea name="content" id="isi"
                             class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit Jawaban</button>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
