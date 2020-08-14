@@ -101,7 +101,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{$answer->user['name']}}</h5>
                             <p class="card-text">{!!$answer->content!!}</p>
-                            <form action="/jawaban/{{$answer->answer_id}}" method="post" class="d-inline">
+                            <form action="/jawaban/{{$question->question_id}}" method="post" class="d-inline">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger">Hapus</button>
