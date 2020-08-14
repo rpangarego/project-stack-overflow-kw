@@ -51,7 +51,9 @@ class ForumKomentarPertanyaanController extends Controller
 
         Alert::success('Berhasil', 'Buat Komentar Berhasil');
 
-        return redirect('/pertanyaan');
+        $link ="/pertanyaan/".$request["question_id"]."/komentarpertanyaan";
+
+        return redirect($link);
     }
 
     /**
@@ -102,6 +104,8 @@ class ForumKomentarPertanyaanController extends Controller
 
         Alert::success('Berhasil', 'Hapus Komentar Berhasil');
 
-        return redirect('/pertanyaan');
+        $link ="/pertanyaan/".$request["question_id"]."/komentarpertanyaan";
+
+        return redirect($link);
     }
 }

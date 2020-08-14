@@ -78,6 +78,7 @@
                         <form action="/pertanyaan/{{$question->question_id}}/komentarpertanyaan" method="post" class="d-inline">
                             @method('delete')
                             @csrf
+                            <input type="hidden" name="comment_id" value="{{$comment->comment_id}}">
                             <button type="submit" class="btn btn-danger">Hapus</button>
                         </form>
                         <hr>
