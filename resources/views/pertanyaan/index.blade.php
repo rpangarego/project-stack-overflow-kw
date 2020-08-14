@@ -37,11 +37,11 @@
                 <span class="icon text-white-50">
                     <i class="far fa-comment"></i>
                 </span>
-                <span class="text">Comment</span>
+                <span class="text">Komentar</span>
             </a>
         </div>
 
-        <a href="{{route('pertanyaan.show', ['pertanyaan' => $question->question_id])}}">See more details
+        <a href="{{route('pertanyaan.show', ['pertanyaan' => $question->question_id])}}">Lihat lebih banyak
             &rarr;</a>
     </div>
 </div>
@@ -58,5 +58,6 @@
 </div>
 </div>
 </div> --}} -->
+
 @endforeach
 @endsection

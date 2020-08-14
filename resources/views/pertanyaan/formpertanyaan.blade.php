@@ -19,7 +19,6 @@
         </div>
         <div class="form-group">
             <label for="content">Isi</label>
-            {{-- <input type="text" class="form-control" id="isi" name="content"> --}}
             <textarea name="content" id="isi"
                 class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
         </div>

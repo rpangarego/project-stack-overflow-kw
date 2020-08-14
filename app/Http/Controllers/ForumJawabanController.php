@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Answer;
+use Illuminate\Support\Facades\Auth;
 
 class ForumJawabanController extends Controller
 {
@@ -13,7 +15,9 @@ class ForumJawabanController extends Controller
      */
     public function index()
     {
-        //
+        $answers = Answer::all();
+        dd($answers->all());
+        return view('pertanyaan.show', compact('answers'));
     }
 
     /**
@@ -23,7 +27,7 @@ class ForumJawabanController extends Controller
      */
     public function create()
     {
-        //
+       
     }
 
     /**
@@ -34,7 +38,16 @@ class ForumJawabanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $answer = new Answer;
+        $answer->content = $request["content"];
+        $answer->vote_point = 10;
+        $answer->user_id = Auth::id();
+        $answer->question_id = $request["question_id"];
+        $answer->save();
+
+        $link ="/pertanyaan/".$request["question_id"];
+
+        return redirect($link);
     }
 
     /**
@@ -79,6 +92,8 @@ class ForumJawabanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $answers = Answer::where('answer_id' , $id)->delete();
+
+        return redirect('/pertanyaan/'.$id);
     }
 }

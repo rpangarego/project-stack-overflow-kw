@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Question;
+use App\Answer;
 
 class ForumPertanyaanController extends Controller
 {
@@ -64,8 +65,8 @@ class ForumPertanyaanController extends Controller
     public function show($id)
     {
         $question = Question::where('question_id', $id)->first();
-        // dd($question);
-        return view('pertanyaan.show', compact('question'));
+        $answers = Answer::where('question_id', $id)->get();
+        return view('pertanyaan.show', compact('question' , 'answers'));
     }
 
     /**
