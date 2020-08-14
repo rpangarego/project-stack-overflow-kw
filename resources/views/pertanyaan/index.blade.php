@@ -33,7 +33,7 @@
                 <span class="text">Downvote</span>
             </a>
             {{-- comment button --}}
-            <a href="#" class="btn btn-light btn-icon-split btn-sm mx-1">
+            <a href="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan" class="btn btn-light btn-icon-split btn-sm mx-1">
                 <span class="icon text-white-50">
                     <i class="far fa-comment"></i>
                 </span>

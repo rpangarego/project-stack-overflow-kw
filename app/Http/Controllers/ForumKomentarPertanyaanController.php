@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
+use App\CommentQuestion;
+use App\Question;
 
-class ForumKomentarController extends Controller
+class ForumKomentarPertanyaanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +18,8 @@ class ForumKomentarController extends Controller
      */
     public function index()
     {
-        //
+        $comments = CommentQuestion::all();
+        return view('komentarpertanyaan.index', ['comments' => $comments]);
     }
 
     /**
@@ -21,9 +27,10 @@ class ForumKomentarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $question = Question::where('question_id', $id)->first();
+        return view('komentarpertanyaan.create', compact('question'));
     }
 
     /**
@@ -32,9 +39,19 @@ class ForumKomentarController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $question = Question::where('question_id', $id)->first();
+
+        $comment = new CommentQuestion();
+        $comment->content = $request["content"];
+        $comment->question_id = $request["question_id"];
+        $comment->user_id = Auth::id();
+        $comment->save();
+
+        Alert::success('Berhasil', 'Buat Komentar Berhasil');
+
+        return redirect('/pertanyaan');
     }
 
     /**
@@ -45,7 +62,9 @@ class ForumKomentarController extends Controller
      */
     public function show($id)
     {
-        //
+        $question = Question::where('question_id', $id)->first();
+        $comments = CommentQuestion::where('question_id', $id)->get();
+        return view('komentarpertanyaan.show', compact('question', 'comments'));
     }
 
     /**
@@ -79,6 +98,10 @@ class ForumKomentarController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comment = CommentQuestion::where('comment_id', $id)->delete();
+
+        Alert::success('Berhasil', 'Hapus Komentar Berhasil');
+
+        return redirect('/pertanyaan');
     }
 }
