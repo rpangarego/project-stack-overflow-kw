@@ -25,7 +25,11 @@ Route::get('/pertanyaan', function () {
 });
 
 Route::resource('pertanyaan', 'ForumPertanyaanController');
-Route::resource('komentar', 'ForumKomentarController');
+Route::resource('komentarpertanyaan', 'ForumKomentarPertanyaanController');
+Route::get('/pertanyaan/{pertanyaan}/komentarpertanyaan', 'ForumKomentarPertanyaanController@show');
+Route::get('/pertanyaan/{pertanyaan}/komentarpertanyaan/create', 'ForumKomentarPertanyaanController@create');
+Route::post('/pertanyaan/{pertanyaan}/komentarpertanyaan', 'ForumKomentarPertanyaanController@store');
+Route::delete('/pertanyaan/{pertanyaan}/komentarpertanyaan', 'ForumKomentarPertanyaanController@destroy');
 Route::resource('jawaban', 'ForumJawabanController');
 
 Auth::routes();

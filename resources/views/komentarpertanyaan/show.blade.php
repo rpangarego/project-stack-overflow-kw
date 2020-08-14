@@ -56,58 +56,48 @@
                             <span class="text">Downvote</span>
                         </a>
                         {{-- comment button --}}
-                        <a href="#" class="btn btn-light btn-icon-split btn-sm mx-1">
+                        <a href="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan/create"
+                            class="btn btn-light btn-icon-split btn-sm mx-1">
                             <span class="icon text-white-50">
                                 <i class="far fa-comment"></i>
                             </span>
-                            <span class="text">Komentar</span>
+                            <span class="text">Beri Komentar</span>
                         </a>
                     </div>
                 </div>
                 <a href="/pertanyaan" class="d-block"> &larr; Kembali</a>
-                <hr>
 
+                <hr>
                 {{-- form jawaban --}}
                 <h6 class="m-0 font-weight-bold text-primary">
-                    <div class="text-gray-700">Jawaban:</div>
+                    <div class="text-gray-700">Komentar:</div>
                 </h6>
-                @foreach($answers as $answer)
-                <div class="card bg-light mb-3" style="max-width: 53rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{$answer->user['name']}}</h5>
-                        <p class="card-text">{!!$answer->content!!}</p>
-                        <form action="/jawaban/{{$answer->answer_id}}" method="post" class="d-inline">
-                            @csrf
-                            @method('delete')
-                            <input type="hidden" name="question_id" value="{{$question->question_id}}">
-                            <button type="submit" class="btn btn-danger">Hapus</button>
-                        </form>
-                    </div>
+                @foreach ($comments as $comment)
+                <div class="card-body">
+                    @if ($comment->comment_id == null)
+                    <p><span class="text-gray-700"><b>Tidak ada komentar</b></p>
+                    <hr>
+                    @else
+                    <p><span class="text-gray-700">{{$comment->user['name']}} mengomentari: <b>{!! $comment->content
+                                !!}</b></span></p>
+                    <br>
+                    <form action="/pertanyaan/{{$question->question_id}}/komentarpertanyaan" method="post"
+                        class="d-inline">
+                        @method('delete')
+                        @csrf
+                        <input type="hidden" name="comment_id" value="{{$comment->comment_id}}">
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </form>
+                    <hr>
+                    @endif
                 </div>
                 @endforeach
-                <form action="/jawaban" method="POST">
-                    @csrf
-                    <input type="hidden" value="{{$question->question_id}}" name="question_id">
-
-                    <div class="form-group">
-<<<<<<< HEAD
-=======
-
->>>>>>> 40532d9dea2ce5dd18ae99e4a4dafb7560e2d7c3
-                        <textarea name="content" id="isi"
-                            class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit Jawaban</button>
-                </form>
             </div>
         </div>
+
     </div>
 </div>
-</div>
-
-</div>
 @endsection
-
 
 @push('scripts')
 <script>
