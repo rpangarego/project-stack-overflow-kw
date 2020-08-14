@@ -35,6 +35,10 @@ Route::resource('jawaban', 'ForumJawabanController');
 Auth::routes();
 Route::get('/home' , 'HomeController@index')->name('home');
 
+// Routes Vote Pertanyaan
+Route::post('/upvote/pertanyaan', 'VotePertanyaanController@upvote');
+Route::post('/downvote/pertanyaan', 'VotePertanyaanController@downvote');
+
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
