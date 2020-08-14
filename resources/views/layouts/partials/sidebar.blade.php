@@ -40,7 +40,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
                 <a class="collapse-item" href="/pertanyaan/create">Buat Pertanyaan</a>
-                <a class="collapse-item" href="#">Pertanyaan-ku</a>
+                <a class="collapse-item" href="/pertanyaanku">Pertanyaan-ku</a>
             </div>
         </div>
     </li>

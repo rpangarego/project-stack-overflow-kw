@@ -14,34 +14,39 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-
+// Route halaman utama
 Route::get('/', function(){
     return view('welcome');
 });
 
+// Route PertanyaanController
 Route::get('/pertanyaan', function () {
     return view('pertanyaan.index');
-
 });
 
 Route::resource('pertanyaan', 'ForumPertanyaanController');
 Route::resource('komentarpertanyaan', 'ForumKomentarPertanyaanController');
+Route::get('/pertanyaanku', 'ForumPertanyaanController@pertanyaanku');
 Route::get('/pertanyaan/{pertanyaan}/komentarpertanyaan', 'ForumKomentarPertanyaanController@show');
 Route::get('/pertanyaan/{pertanyaan}/komentarpertanyaan/create', 'ForumKomentarPertanyaanController@create');
 Route::post('/pertanyaan/{pertanyaan}/komentarpertanyaan', 'ForumKomentarPertanyaanController@store');
 Route::delete('/pertanyaan/{pertanyaan}/komentarpertanyaan', 'ForumKomentarPertanyaanController@destroy');
 Route::resource('jawaban', 'ForumJawabanController');
 
+// Route Komentar
 Route::resource('komentarjawaban', 'ForumKomentarJawabanController');
 Route::get('/pertanyaan/{pertanyaan}/jawaban/{jawaban}/komentarjawaban', 'ForumKomentarJawabanController@show');
 
 Auth::routes();
 Route::get('/home' , 'HomeController@index')->name('home');
 
-// Routes Vote Pertanyaan
+// Route Vote Pertanyaan
 Route::post('/upvote/pertanyaan', 'VotePertanyaanController@upvote');
 Route::post('/downvote/pertanyaan', 'VotePertanyaanController@downvote');
 
+
+
+// Route Middleware Laravel File Manager
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });

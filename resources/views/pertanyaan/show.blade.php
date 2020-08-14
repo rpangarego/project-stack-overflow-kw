@@ -17,6 +17,12 @@
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary"><span class="text-gray-700">Pertanyaan:
                     </span>{{$question->title}}</h6>
+
+                {{-- Auth Action Button --}}
+                @guest
+                <div></div>
+                @else
+                @if ($question->user_id == Auth::user()->id)
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -33,6 +39,9 @@
                         </form>
                     </div>
                 </div>
+                @endif
+                @endguest
+
             </div>
             <!-- Card Body -->
             <div class="card-body">
@@ -87,6 +96,10 @@
                     <div class="card-body">
                         <div class="d-flex flex-row align-items-center justify-content-between">
                             <h6 class="m-0 font-weight-bold text-primary">{{$answer->user['name']}}: </h6>
+                            @guest
+                            <div></div>
+                            @else
+                            @if ($question->user_id == Auth::user()->id)
                             <div class="delete-button">
                                 <form action="/jawaban/{{$answer->answer_id}}" method="post" class="d-inline">
                                     @csrf
@@ -95,8 +108,9 @@
                                     <button type="submit" class="btn btn-sm text-danger">Hapus</button>
                                 </form>
                             </div>
+                            @endif
+                            @endguest
                         </div>
-
                         {!!$answer->content!!}
                     </div>
                 </div>
@@ -111,7 +125,6 @@
                 <form action="/jawaban" method="POST">
                     @csrf
                     <input type="hidden" value="{{$question->question_id}}" name="question_id">
-
                     <div class="form-group">
                         <textarea name="content" id="isi"
                             class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
@@ -122,9 +135,7 @@
         </div>
     </div>
 </div>
-</div>
 
-</div>
 @endsection
 
 

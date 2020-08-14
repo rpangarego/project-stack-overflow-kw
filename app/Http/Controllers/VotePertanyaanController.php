@@ -10,6 +10,10 @@ use App\UpvoteDownvoteQuestion;
 
 class VotePertanyaanController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     public function upvote(Request $request){
 
         $vote = UpvoteDownvoteQuestion::updateOrCreate(
