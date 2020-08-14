@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('title')
-    <title>Stack Overflow</title>
+<title>Stack Overflow</title>
 @endsection
 
 @push('script-head')
-    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 @endpush
 
 @section('content')
@@ -17,7 +17,8 @@
 
         <div class="form-group">
             <label for="content">Komentar</label>
-            <textarea name="content" id="isi" class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
+            <textarea name="content" id="isi"
+                class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Buat Komentar</button>

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Question;
 use App\Answer;
+use App\UpvoteDownvoteQuestion;
 
 class ForumPertanyaanController extends Controller
 {
@@ -52,7 +53,6 @@ class ForumPertanyaanController extends Controller
         $question->save();
 
         Alert::success('Berhasil', 'Buat Pertanyaan Berhasil');
-
         return redirect('/pertanyaan');
     }
 
