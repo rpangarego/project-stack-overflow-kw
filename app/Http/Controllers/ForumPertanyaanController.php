@@ -64,7 +64,6 @@ class ForumPertanyaanController extends Controller
     public function show($id)
     {
         $question = Question::where('question_id', $id)->first();
-        // dd($question);
         return view('pertanyaan.show', compact('question'));
     }
 

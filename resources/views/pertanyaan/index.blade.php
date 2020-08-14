@@ -37,26 +37,13 @@
                 <span class="icon text-white-50">
                     <i class="far fa-comment"></i>
                 </span>
-                <span class="text">Comment</span>
+                <span class="text">Komentar</span>
             </a>
         </div>
 
-        <a href="{{route('pertanyaan.show', ['pertanyaan' => $question->question_id])}}">See more details
+        <a href="{{route('pertanyaan.show', ['pertanyaan' => $question->question_id])}}">Lihat lebih banyak
             &rarr;</a>
     </div>
 </div>
-
-{{-- tampilan yg lama. kalo mau pake tinggal di uncomment trus hapus yg diatas --}}
-{{-- <div class="row mb-3">
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{$question->title}}</h5>
-<p class="card-text">Ditanyakan oleh: {{$question->user['name']}}</p>
-<a href="{{route('pertanyaan.show', ['pertanyaan' => $question->question_id])}}" class="btn btn-primary px-4">Baca</a>
-</div>
-</div>
-</div>
-</div> --}}
 @endforeach
 @endsection
