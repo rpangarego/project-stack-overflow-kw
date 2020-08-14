@@ -9,148 +9,145 @@
 @endpush
 
 @section('content')
-<div class="row">
-    <div class="col">
-        <!-- Dropdown Card Example -->
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary"><span class="text-gray-700">Pertanyaan:
-                    </span>{{$question->title}}</h6>
 
-                {{-- Auth Action Button --}}
-                @guest
-                <div></div>
-                @else
-                @if ($question->user_id == Auth::user()->id)
-                <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                        aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Aksi</div>
-                        <a class="dropdown-item" href="{{$question->question_id}}/edit">Ubah</a>
-                        <form action="/pertanyaan/{{$question->question_id}}" method="post" class="d-inline">
-                            @method('delete')
-                            @csrf
-                            <button type="submit" class="dropdown-item text-danger">Hapus</button>
-                        </form>
-                    </div>
-                </div>
+<!-- Dropdown Card Example -->
+<div class="card shadow mb-4">
+    <!-- Card Header - Dropdown -->
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary"><span class="text-gray-700">Pertanyaan:
+            </span>{{$question->title}}</h6>
+
+        {{-- Auth Action Button --}}
+        @guest
+        <div></div>
+        @else
+        @if ($question->user_id == Auth::user()->id)
+        <div class="dropdown no-arrow">
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                <div class="dropdown-header">Aksi</div>
+                <a class="dropdown-item" href="{{$question->question_id}}/edit">Ubah</a>
+                <form action="/pertanyaan/{{$question->question_id}}" method="post" class="d-inline">
+                    @method('delete')
+                    @csrf
+                    <button type="submit" class="dropdown-item text-danger">Hapus</button>
+                </form>
+            </div>
+        </div>
+        @endif
+        @endguest
+
+    </div>
+    <!-- Card Body -->
+    <div class="card-body">
+        <p>Deskripsi: {!!$question->content!!}</p>
+        <div class="text-muted" style="font-size: 14px">Ditanyakan oleh: {{$question->user['name']}}</div>
+        <hr>
+        <div>
+            <div class="buttons float-right row">
+                {{-- upvote button --}}
+                <form action="/upvote/pertanyaan" method="POST">
+                    @csrf
+                    <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                    <input type="hidden" name="user_id" value="{{$question->user['id']}}">
+                    <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1" id="upvote"
+                        onclick="disableBtn(false)">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-arrow-up"></i>
+                        </span>
+                        <span class="text">Upvote</span></button>
+                </form>
+                {{-- downvote button --}}
+                <form action="/downvote/pertanyaan" method="POST">
+                    @csrf
+                    <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                    <input type="hidden" name="user_id" value="{{$question->user['id']}}">
+                    <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1" id="downvote"
+                        onclick="disableBtn(false)">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-arrow-down"></i>
+                        </span>
+                        <span class="text">Downvote</span></button>
+                </form>
+                {{-- comment button --}}
+                <a href="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan"
+                    class="btn btn-light btn-icon-split btn-sm mx-1">
+                    <span class="icon text-white-50">
+                        <i class="far fa-comment"></i>
+                    </span>
+                    <span class="text">Komentar</span>
+                </a>
+            </div>
+        </div>
+        <a href="/pertanyaan" class="d-block"> &larr; Kembali</a>
+        <hr>
+
+        {{-- form jawaban --}}
+        <h6 class="m-0 mb-3 font-weight-bold text-primary">
+            <div class="text-gray-700">Jawaban:</div>
+        </h6>
+
+        @forelse ($answers as $answer)
+        @if ($question->correct_answer_id == $answer->answer_id)
+        <div class="card border-left-info shadow mb-4">
+            @else
+            <div class="card shadow mb-4">
                 @endif
-                @endguest
 
-            </div>
-            <!-- Card Body -->
-            <div class="card-body">
-                <p>Deskripsi: {!!$question->content!!}</p>
-                <div class="text-muted" style="font-size: 14px">Ditanyakan oleh: {{$question->user['name']}}</div>
-                <hr>
-                <div>
-                    <div class="buttons float-right row">
-                        {{-- upvote button --}}
-                        <form action="/upvote/pertanyaan" method="POST">
-                            @csrf
-                            <input type="hidden" name="question_id" value="{{$question->question_id}}">
-                            <input type="hidden" name="user_id" value="{{$question->user['id']}}">
-                            <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span
-                                    class="icon text-white-50">
-                                    <i class="fas fa-arrow-up"></i>
-                                </span>
-                                <span class="text">Upvote</span></button>
-                        </form>
-                        {{-- downvote button --}}
-                        <form action="/downvote/pertanyaan" method="POST">
-                            @csrf
-                            <input type="hidden" name="question_id" value="{{$question->question_id}}">
-                            <input type="hidden" name="user_id" value="{{$question->user['id']}}">
-                            <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span
-                                    class="icon text-white-50">
-                                    <i class="fas fa-arrow-down"></i>
-                                </span>
-                                <span class="text">Downvote</span></button>
-                        </form>
-                        {{-- comment button --}}
-                        <a href="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan"
-                            class="btn btn-light btn-icon-split btn-sm mx-1">
-                            <span class="icon text-white-50">
-                                <i class="far fa-comment"></i>
-                            </span>
-                            <span class="text">Komentar</span>
-                        </a>
-                    </div>
-                </div>
-                <a href="/pertanyaan" class="d-block"> &larr; Kembali</a>
-                <hr>
+                <!-- Answer Body -->
+                <div class="card-body ">
+                    <div class="d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">{{$answer->user['name']}}: </h6>
 
-                {{-- form jawaban --}}
-                <h6 class="m-0 mb-3 font-weight-bold text-primary">
-                    <div class="text-gray-700">Jawaban:</div>
-                </h6>
+                        @auth
+                        <div class="delete-button">
+                            @if ($question->correct_answer_id == null)
+                            @if ($question->user_id == Auth::user()->id)
+                            <form action="/jawabanTepat/{{$answer->answer_id}}" method="post" class="d-inline">
+                                @csrf
+                                @method('put')
+                                <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                                <input type="hidden" name="user_id" value="{{$answer->user_id}}">
+                                <button type="submit" class="btn btn-sm text-info">Jawaban Tepat</button>
+                            </form>
+                            @endif
+                            @endif
 
-                @forelse ($answers as $answer)
-                @if ($question->correct_answer_id == $answer->answer_id)
-                <div class="card border-left-info shadow mb-4">
-                    @else
-                    <div class="card shadow mb-4">
-                        @endif
-
-                        <!-- Answer Body -->
-                        <div class="card-body ">
-                            <div class="d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">{{$answer->user['name']}}: </h6>
-
-                                @auth
-                                <div class="delete-button">
-                                    @if ($question->correct_answer_id == null)
-                                    @if ($question->user_id == Auth::user()->id)
-                                    <form action="/jawabanTepat/{{$answer->answer_id}}" method="post" class="d-inline">
-                                        @csrf
-                                        @method('put')
-                                        <input type="hidden" name="question_id" value="{{$question->question_id}}">
-                                        <input type="hidden" name="user_id" value="{{$answer->user_id}}">
-                                        <button type="submit" class="btn btn-sm text-info">Jawaban Tepat</button>
-                                    </form>
-                                    @endif
-                                    @endif
-
-                                    @if ($answer->user_id == Auth::user()->id)
-                                    <a href="/jawaban/{{$answer->answer_id}}/edit"
-                                        class="btn btn-sm text-primary">Edit</a>
-                                    <form action="/jawaban/{{$answer->answer_id}}" method="post" class="d-inline">
-                                        @csrf
-                                        @method('delete')
-                                        <input type="hidden" name="question_id" value="{{$question->question_id}}">
-                                        <button type="submit" class="btn btn-sm text-danger">Hapus</button>
-                                    </form>
-                                    @endif
-                                </div>
-                                @endauth
-                            </div>
-                            {!!$answer->content!!}
+                            @if ($answer->user_id == Auth::user()->id)
+                            <a href="/jawaban/{{$answer->answer_id}}/edit" class="btn btn-sm text-primary">Edit</a>
+                            <form action="/jawaban/{{$answer->answer_id}}" method="post" class="d-inline">
+                                @csrf
+                                @method('delete')
+                                <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                                <button type="submit" class="btn btn-sm text-danger">Hapus</button>
+                            </form>
+                            @endif
                         </div>
+                        @endauth
                     </div>
-                    @empty
-                    <div class="card bg-light mb-3">
-                        <div class="card-body" align="center">
-                            Belum ada jawaban
-                        </div>
-                    </div>
-                    @endforelse
-
-                    <form action="/jawaban" method="POST">
-                        @csrf
-                        <input type="hidden" value="{{$question->question_id}}" name="question_id">
-                        <div class="form-group">
-                            <textarea name="content" id="isi"
-                                class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit Jawaban</button>
-                    </form>
+                    {!!$answer->content!!}
                 </div>
             </div>
+            @empty
+            <div class="card bg-light mb-3">
+                <div class="card-body" align="center">
+                    Belum ada jawaban
+                </div>
+            </div>
+            @endforelse
+
+            <form action="/jawaban" method="POST">
+                @csrf
+                <input type="hidden" value="{{$question->question_id}}" name="question_id">
+                <div class="form-group">
+                    <textarea name="content" id="isi"
+                        class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Jawaban</button>
+            </form>
         </div>
     </div>
 
@@ -193,5 +190,20 @@
     };
 
     tinymce.init(editor_config);
+    </script>
+    @endpush
+
+    @push('upvote_downvote')
+    <script>
+        function disableBtn(flag){
+      if(!flag) {
+        document.getElementById('upvote').setAttribute("disabled", "true");
+      } else {
+        document.getElementById('upvote').removeAttribute("disabled");
+        document.getElementById('upvote').focus();
+      }
+
+    }
+
     </script>
     @endpush

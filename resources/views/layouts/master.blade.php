@@ -77,6 +77,8 @@
 
     {{-- Additional scripts --}}
     @stack('scripts')
+
+    @stack('upvote_downvote')
 </body>
 
 </html>

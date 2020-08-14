@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\UpvoteDownvoteQuestion;
 use App\User;
+use App\Question;
 
 class VotePertanyaanController extends Controller
 {
