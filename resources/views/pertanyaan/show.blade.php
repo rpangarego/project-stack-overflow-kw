@@ -40,23 +40,32 @@
                 <div class="text-muted" style="font-size: 14px">Ditanyakan oleh: {{$question->user['name']}}</div>
                 <hr>
                 <div>
-                    <div class="buttons float-right">
+                    <div class="buttons float-right row">
                         {{-- upvote button --}}
-                        <a href="#" class="btn btn-light btn-icon-split btn-sm mx-1">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-arrow-up"></i>
-                            </span>
-                            <span class="text">Upvote</span>
-                        </a>
+                        <form action="/upvote/pertanyaan" method="POST">
+                            @csrf
+                            <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                            <input type="hidden" name="" value="{{$question->question_id}}">
+                            <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span
+                                    class="icon text-white-50">
+                                    <i class="fas fa-arrow-up"></i>
+                                </span>
+                                <span class="text">Upvote</span></button>
+                        </form>
                         {{-- downvote button --}}
-                        <a href="#" class="btn btn-light btn-icon-split btn-sm mx-1">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-arrow-down"></i>
-                            </span>
-                            <span class="text">Downvote</span>
-                        </a>
+                        <form action="/downvote/pertanyaan" method="POST">
+                            @csrf
+                            <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                            <input type="hidden" name="" value="{{$question->question_id}}">
+                            <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span
+                                    class="icon text-white-50">
+                                    <i class="fas fa-arrow-up"></i>
+                                </span>
+                                <span class="text">Downvote</span></button>
+                        </form>
                         {{-- comment button --}}
-                        <a href="#" class="btn btn-light btn-icon-split btn-sm mx-1">
+                        <a href="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan"
+                            class="btn btn-light btn-icon-split btn-sm mx-1">
                             <span class="icon text-white-50">
                                 <i class="far fa-comment"></i>
                             </span>
@@ -68,23 +77,37 @@
                 <hr>
 
                 {{-- form jawaban --}}
-                <h6 class="m-0 font-weight-bold text-primary">
+                <h6 class="m-0 mb-3 font-weight-bold text-primary">
                     <div class="text-gray-700">Jawaban:</div>
                 </h6>
-                @foreach($answers as $answer)
-                <div class="card bg-light mb-3" style="max-width: 53rem;">
+
+                @forelse ($answers as $answer)
+                <div class="card shadow mb-4">
+                    <!-- Answer Body -->
                     <div class="card-body">
-                        <h5 class="card-title">{{$answer->user['name']}}</h5>
-                        <p class="card-text">{!!$answer->content!!}</p>
-                        <form action="/jawaban/{{$answer->answer_id}}" method="post" class="d-inline">
-                            @csrf
-                            @method('delete')
-                            <input type="hidden" name="question_id" value="{{$question->question_id}}">
-                            <button type="submit" class="btn btn-danger">Hapus</button>
-                        </form>
+                        <div class="d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">{{$answer->user['name']}}: </h6>
+                            <div class="delete-button">
+                                <form action="/jawaban/{{$answer->answer_id}}" method="post" class="d-inline">
+                                    @csrf
+                                    @method('delete')
+                                    <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                                    <button type="submit" class="btn btn-sm text-danger">Hapus</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        {!!$answer->content!!}
                     </div>
                 </div>
-                @endforeach
+                @empty
+                <div class="card bg-light mb-3">
+                    <div class="card-body" align="center">
+                        Belum ada jawaban
+                    </div>
+                </div>
+                @endforelse
+
                 <form action="/jawaban" method="POST">
                     @csrf
                     <input type="hidden" value="{{$question->question_id}}" name="question_id">

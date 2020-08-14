@@ -21,6 +21,7 @@
                 class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
         </div>
         <div class="form-group">
+            <a href="/pertanyaan/{{$question->question_id}}/komentarpertanyaan" class="btn btn-secondary">Batal</a>
             <button type="submit" class="btn btn-primary">Buat Komentar</button>
         </div>
     </form>
