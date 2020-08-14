@@ -55,8 +55,8 @@
                             @csrf
                             <input type="hidden" name="question_id" value="{{$question->question_id}}">
                             <input type="hidden" name="user_id" value="{{$question->user['id']}}">
-                            <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span
-                                    class="icon text-white-50">
+                            <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1" id="upvote" onclick="disableBtn(false)">
+                                <span class="icon text-white-50">
                                     <i class="fas fa-arrow-up"></i>
                                 </span>
                                 <span class="text">Upvote</span></button>
@@ -66,8 +66,8 @@
                             @csrf
                             <input type="hidden" name="question_id" value="{{$question->question_id}}">
                             <input type="hidden" name="user_id" value="{{$question->user['id']}}">
-                            <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span
-                                    class="icon text-white-50">
+                            <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1" id="downvote" onclick="disableBtn(false)">
+                                <span class="icon text-white-50">
                                     <i class="fas fa-arrow-down"></i>
                                 </span>
                                 <span class="text">Downvote</span></button>
@@ -177,4 +177,20 @@
 
     tinymce.init(editor_config);
 </script>
+@endpush
+
+@push('upvote_downvote')
+    <script>
+
+    function disableBtn(flag){
+      if(!flag) {
+        document.getElementById('upvote').setAttribute("disabled", "true");
+      } else {
+        document.getElementById('upvote').removeAttribute("disabled");
+        document.getElementById('upvote').focus();
+      }
+      
+    }
+
+    </script>
 @endpush
