@@ -73,6 +73,10 @@
                 </h6>
                 @foreach ($comments as $comment)
                 <div class="card-body">
+                    @if ($comment->comment_id == null)
+                        <p><span class="text-gray-700"><b>Tidak ada komentar</b></p>
+                        <hr>
+                    @else
                         <p><span class="text-gray-700">{{$comment->user['name']}} mengomentari: <b>{!! $comment->content !!}</b></span></p>
                         <br>
                         <form action="/pertanyaan/{{$question->question_id}}/komentarpertanyaan" method="post" class="d-inline">
@@ -82,6 +86,7 @@
                             <button type="submit" class="btn btn-danger">Hapus</button>
                         </form>
                         <hr>
+                    @endif
                 </div>
                 @endforeach
             </div>

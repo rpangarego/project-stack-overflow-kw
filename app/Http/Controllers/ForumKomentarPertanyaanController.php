@@ -51,7 +51,7 @@ class ForumKomentarPertanyaanController extends Controller
 
         Alert::success('Berhasil', 'Buat Komentar Berhasil');
 
-        $link ="/pertanyaan/".$request["question_id"]."/komentarpertanyaan";
+        $link = "/pertanyaan/".$request["question_id"]."/komentarpertanyaan";
 
         return redirect($link);
     }
@@ -98,13 +98,13 @@ class ForumKomentarPertanyaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $comment = CommentQuestion::where('comment_id', $id)->delete();
+        $comment = CommentQuestion::where('comment_id', $request['comment_id'])->delete();
 
         Alert::success('Berhasil', 'Hapus Komentar Berhasil');
 
-        $link ="/pertanyaan/".$request["question_id"]."/komentarpertanyaan";
+        $link = "/pertanyaan/".$request["question_id"];
 
         return redirect($link);
     }
