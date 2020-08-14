@@ -9,9 +9,9 @@
 @endpush
 
 @section('content')
-<h3 class="text-center">Buat Komentar Pertanyaan</h3>
+<h3 class="text-center">Buat Komentar Jawaban</h3>
 <div class="container bg-white">
-    <form class="p-3" action="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan" method="POST">
+    <form class="p-3" action="/pertanyaan/{{ $question->question_id }}/komentarjawaban" method="POST">
         @csrf
         <input type="hidden" value="{{$question->question_id}}" name="question_id">
 
