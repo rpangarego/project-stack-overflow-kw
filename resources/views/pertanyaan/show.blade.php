@@ -25,8 +25,12 @@
                         <button type="submit" class="btn btn-danger">Hapus</button>
                     </form>
                 </div>
-
-
+                <br>
+                <div class="d-flex justify-content-around">
+                    <a href="#"><i class="fas fa-arrow-up"></i></a>
+                    <a href="#"><i class="fas fa-arrow-down"></i></a>
+                    <a href="#"><i class="far fa-comment-dots"></i></a>
+                </div>
             </div>
         </div>
     </div>
