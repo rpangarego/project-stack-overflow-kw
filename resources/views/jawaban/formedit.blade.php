@@ -9,17 +9,18 @@
 @endpush
 
 @section('content')
-<h3 class="text-center">Edit Pertanyaan</h3>
+<h3 class="text-center">Edit Jawaban</h3>
 <form action="" method="post">
-@csrf
-@method('put')
+    @csrf
+    @method('put')
     <div class="form-group">
-    <input type="hidden" name="question_id" value="{{$answers->question_id}}">
+        <input type="hidden" name="question_id" value="{{$answers->question_id}}">
         <label for="content">Isi</label>
-            <textarea name="content" id="isi"
+        <textarea name="content" id="isi"
             class="form-control my-editor">{{old('content' , $answers->content)}}</textarea>
     </div>
     <div class="form-group">
+        <a href="/pertanyaan" class="btn btn-secondary">Batal</a>
         <button type="submit" class="btn btn-primary">Edit Pertanyaan</button>
     </div>
 </form>

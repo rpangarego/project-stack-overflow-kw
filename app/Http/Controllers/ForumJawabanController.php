@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Question;
 use App\Answer;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -22,13 +24,8 @@ class ForumJawabanController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
-
-=======
         $answers = Answer::all();
-        // dd($answers->all());
         return view('pertanyaan.show', compact('answers'));
->>>>>>> 88db02274b84d879d7f41c98fe0b405dcfec11ac
     }
 
     /**
@@ -79,7 +76,8 @@ class ForumJawabanController extends Controller
      */
     public function edit($id)
     {
-        $answers = Answer::where('answer_id' , $id);
+        $answers = Answer::where('answer_id' , $id)->first();
+        // dd($answers);
         return view('jawaban.formedit' , compact('answers'));
     }
 
@@ -93,10 +91,8 @@ class ForumJawabanController extends Controller
     public function update(Request $request, $id)
     {
         $answers = Answer::where('answer_id' , $id);
-
         $answers->content = $request["content"];
         $answers->save();
-
         return redirect('/pertanyaan/'.$request["question_id"]);
     }
 
@@ -109,8 +105,21 @@ class ForumJawabanController extends Controller
     public function destroy(Request $request, $id)
     {
         $answers = Answer::where('answer_id' , $id)->delete();
-
         Alert::success('Berhasil', 'Jawaban Berhasil Dihapus');
+        $link = '/pertanyaan/'.$request['question_id'];
+        return redirect($link);
+    }
+
+    public function correctAnswer(Request $request, $answer_id){
+        // input id jawaban tepat
+        $question = Question::where('question_id', $request['question_id'])->update(['correct_answer_id' =>  $answer_id]);
+
+        // menambahkan 15 point ke user yg bertanya
+        $user = User::find($request["user_id"]);
+        $user["reputation_point"] = $user->reputation_point + 15;
+        $user->save();
+
+        Alert::success('Berhasil', 'Jawaban Tepat Dipilih');
         $link = '/pertanyaan/'.$request['question_id'];
         return redirect($link);
     }

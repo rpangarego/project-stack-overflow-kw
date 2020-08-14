@@ -91,58 +91,75 @@
                 </h6>
 
                 @forelse ($answers as $answer)
-                <div class="card shadow mb-4">
-                    <!-- Answer Body -->
-                    <div class="card-body">
-                        <div class="d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">{{$answer->user['name']}}: </h6>
-                            @guest
-                            <div></div>
-                            @else
-                            @if ($question->user_id == Auth::user()->id)
-                            <div class="delete-button">
-                            <a href="/jawaban/{{$answer->answer_id}}/edit" class="btn btn-sm text-primary">Edit</a>
-                                <form action="/jawaban/{{$answer->answer_id}}" method="post" class="d-inline">
-                                    @csrf
-                                    @method('delete')
-                                    <input type="hidden" name="question_id" value="{{$question->question_id}}">
-                                    <button type="submit" class="btn btn-sm text-danger">Hapus</button>
-                                </form>
-                            </div>
-                            @endif
-                            @endguest
-                        </div>
-                        {!!$answer->content!!}
-                    </div>
-                </div>
-                @empty
-                <div class="card bg-light mb-3">
-                    <div class="card-body" align="center">
-                        Belum ada jawaban
-                    </div>
-                </div>
-                @endforelse
+                @if ($question->correct_answer_id == $answer->answer_id)
+                <div class="card border-left-info shadow mb-4">
+                    @else
+                    <div class="card shadow mb-4">
+                        @endif
 
-                <form action="/jawaban" method="POST">
-                    @csrf
-                    <input type="hidden" value="{{$question->question_id}}" name="question_id">
-                    <div class="form-group">
-                        <textarea name="content" id="isi"
-                            class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
+                        <!-- Answer Body -->
+                        <div class="card-body ">
+                            <div class="d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">{{$answer->user['name']}}: </h6>
+
+                                @auth
+                                <div class="delete-button">
+                                    @if ($question->correct_answer_id == null)
+                                    @if ($question->user_id == Auth::user()->id)
+                                    <form action="/jawabanTepat/{{$answer->answer_id}}" method="post" class="d-inline">
+                                        @csrf
+                                        @method('put')
+                                        <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                                        <input type="hidden" name="user_id" value="{{$answer->user_id}}">
+                                        <button type="submit" class="btn btn-sm text-info">Jawaban Tepat</button>
+                                    </form>
+                                    @endif
+                                    @endif
+
+                                    @if ($answer->user_id == Auth::user()->id)
+                                    <a href="/jawaban/{{$answer->answer_id}}/edit"
+                                        class="btn btn-sm text-primary">Edit</a>
+                                    <form action="/jawaban/{{$answer->answer_id}}" method="post" class="d-inline">
+                                        @csrf
+                                        @method('delete')
+                                        <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                                        <button type="submit" class="btn btn-sm text-danger">Hapus</button>
+                                    </form>
+                                    @endif
+                                </div>
+                                @endauth
+                            </div>
+                            {!!$answer->content!!}
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit Jawaban</button>
-                </form>
+                    @empty
+                    <div class="card bg-light mb-3">
+                        <div class="card-body" align="center">
+                            Belum ada jawaban
+                        </div>
+                    </div>
+                    @endforelse
+
+                    <form action="/jawaban" method="POST">
+                        @csrf
+                        <input type="hidden" value="{{$question->question_id}}" name="question_id">
+                        <div class="form-group">
+                            <textarea name="content" id="isi"
+                                class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Jawaban</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-@endsection
+    @endsection
 
 
-@push('scripts')
-<script>
-    var editor_config = {
+    @push('scripts')
+    <script>
+        var editor_config = {
       path_absolute : "/",
       selector: "textarea.my-editor",
       plugins: [
@@ -176,5 +193,5 @@
     };
 
     tinymce.init(editor_config);
-</script>
-@endpush
+    </script>
+    @endpush
