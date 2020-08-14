@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Question;
 use App\Answer;
+use App\CommentQuestion;
 use App\UpvoteDownvoteQuestion;
 
 class ForumPertanyaanController extends Controller
@@ -115,6 +116,9 @@ class ForumPertanyaanController extends Controller
      */
     public function destroy($id)
     {
+        $upvotedownvote = UpvoteDownvoteQuestion::where('question_id' , $id)->delete();
+        $commentquestion = CommentQuestion::where('question_id' , $id)->delete();
+        $answer = Answer::where('question_id' , $id)->delete();
         $question = Question::where('question_id', $id)->delete();
 
         Alert::success('Berhasil', 'Hapus Pertanyaan Berhasil');
