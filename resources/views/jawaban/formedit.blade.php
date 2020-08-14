@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-<title>Stack Overflow</title>
+<title>Edit Jawaban</title>
 @endsection
 
 @push('script-head')
@@ -9,23 +9,21 @@
 @endpush
 
 @section('content')
-<h3 class="text-center">Buat Komentar Pertanyaan</h3>
-<div class="container bg-white">
-    <form class="p-3" action="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan" method="POST">
-        @csrf
-        <input type="hidden" value="{{$question->question_id}}" name="question_id">
-
-        <div class="form-group">
-            <label for="content">Komentar</label>
+<h3 class="text-center">Edit Pertanyaan</h3>
+<form action="" method="post">
+@csrf
+@method('put')
+    <div class="form-group">
+    <input type="hidden" name="question_id" value="{{$answers->question_id}}">
+        <label for="content">Isi</label>
             <textarea name="content" id="isi"
-                class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
-        </div>
-        <div class="form-group">
-            <a href="/pertanyaan/{{$question->question_id}}/komentarpertanyaan" class="btn btn-secondary">Batal</a>
-            <button type="submit" class="btn btn-primary">Buat Komentar</button>
-        </div>
-    </form>
-</div>
+            class="form-control my-editor">{{old('content' , $answers->content)}}</textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Edit Pertanyaan</button>
+    </div>
+</form>
+
 @endsection
 
 @push('scripts')

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
-use App\Answer;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
+use App\CommentAnswer;
+use App\Answer;
 
-
-class ForumJawabanController extends Controller
+class ForumKomentarJawabanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class ForumJawabanController extends Controller
      */
     public function index()
     {
-
+        //
     }
 
     /**
@@ -26,9 +26,10 @@ class ForumJawabanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-
+        $answer = Answer::where('answer_id', $id)->first();
+        return view('komentarjawaban.create', compact('answer'));
     }
 
     /**
@@ -37,16 +38,20 @@ class ForumJawabanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        $answer = new Answer;
-        $answer->content = $request["content"];
-        $answer->vote_point = 10;
-        $answer->user_id = Auth::id();
-        $answer->question_id = $request["question_id"];
-        $answer->save();
+        $answer = Answer::where('answer_id', $id)->first();
 
-        $link ="/pertanyaan/".$request["question_id"];
+        $comment = new CommentAnswer();
+        $comment->content = $request["content"];
+        $comment->naswer_id = $request["answer_id"];
+        $comment->user_id = Auth::id();
+        $comment->save();
+
+        Alert::success('Berhasil', 'Buat Komentar Berhasil');
+
+        $link = "/pertanyaan/".$request["question_id"]."/komentarpertanyaan";
+
         return redirect($link);
     }
 
@@ -58,7 +63,9 @@ class ForumJawabanController extends Controller
      */
     public function show($id)
     {
-        //
+        $answer = Answer::where('question_id', $id)->first();
+        $comments = CommentAnswer::where('question_id', $id)->get();
+        return view('komentarjawaban.show', compact('answer', 'comments'));
     }
 
     /**
@@ -69,8 +76,7 @@ class ForumJawabanController extends Controller
      */
     public function edit($id)
     {
-        $answers = Answer::where('answer_id' , $id);
-        return view('jawaban.formedit' , compact('answers'));
+        //
     }
 
     /**
@@ -82,12 +88,7 @@ class ForumJawabanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $answers = Answer::where('answer_id' , $id);
-
-        $answers->content = $request["content"];
-        $answers->save();
-
-        return redirect('/pertanyaan/'.$request["question_id"]);
+        //
     }
 
     /**
@@ -96,12 +97,8 @@ class ForumJawabanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-        $answers = Answer::where('answer_id' , $id)->delete();
-
-        Alert::success('Berhasil', 'Jawaban Berhasil Dihapus');
-        $link = '/pertanyaan/'.$request['question_id'];
-        return redirect($link);
+        //
     }
 }

@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('title')
-<title>Stack Overflow</title>
+    <title>Stack Overflow</title>
 @endsection
 
 @push('script-head')
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 @endpush
 
 @section('content')
@@ -40,94 +40,61 @@
                 <div class="text-muted" style="font-size: 14px">Ditanyakan oleh: {{$question->user['name']}}</div>
                 <hr>
                 <div>
-                    <div class="buttons float-right row">
+                    <div class="buttons float-right">
                         {{-- upvote button --}}
-                        <form action="/upvote/pertanyaan" method="POST">
-                            @csrf
-                            <input type="hidden" name="question_id" value="{{$question->question_id}}">
-                            <input type="hidden" name="" value="{{$question->question_id}}">
-                            <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span
-                                    class="icon text-white-50">
-                                    <i class="fas fa-arrow-up"></i>
-                                </span>
-                                <span class="text">Upvote</span></button>
-                        </form>
+                        <a href="#" class="btn btn-light btn-icon-split btn-sm mx-1">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-arrow-up"></i>
+                            </span>
+                            <span class="text">Upvote</span>
+                        </a>
                         {{-- downvote button --}}
-                        <form action="/downvote/pertanyaan" method="POST">
-                            @csrf
-                            <input type="hidden" name="question_id" value="{{$question->question_id}}">
-                            <input type="hidden" name="" value="{{$question->question_id}}">
-                            <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span
-                                    class="icon text-white-50">
-                                    <i class="fas fa-arrow-up"></i>
-                                </span>
-                                <span class="text">Downvote</span></button>
-                        </form>
+                        <a href="#" class="btn btn-light btn-icon-split btn-sm mx-1">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-arrow-down"></i>
+                            </span>
+                            <span class="text">Downvote</span>
+                        </a>
                         {{-- comment button --}}
-                        <a href="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan"
-                            class="btn btn-light btn-icon-split btn-sm mx-1">
+                        <a href="/pertanyaan/{{ $question->question_id }}/komentarjawaban/create" class="btn btn-light btn-icon-split btn-sm mx-1">
                             <span class="icon text-white-50">
                                 <i class="far fa-comment"></i>
                             </span>
-                            <span class="text">Komentar</span>
+                            <span class="text">Beri Komentar</span>
                         </a>
                     </div>
                 </div>
                 <a href="/pertanyaan" class="d-block"> &larr; Kembali</a>
+
                 <hr>
-
                 {{-- form jawaban --}}
-                <h6 class="m-0 mb-3 font-weight-bold text-primary">
-                    <div class="text-gray-700">Jawaban:</div>
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <div class="text-gray-700">Komentar:</div>
                 </h6>
-
-                @forelse ($answers as $answer)
-                <div class="card shadow mb-4">
-                    <!-- Answer Body -->
-                    <div class="card-body">
-                        <div class="d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">{{$answer->user['name']}}: </h6>
-                            <div class="delete-button">
-                            <a href="/jawaban/{{$answer->answer_id}}/edit" class="btn btn-sm text-primary">Edit</a>
-                                <form action="/jawaban/{{$answer->answer_id}}" method="post" class="d-inline">
-                                    @csrf
-                                    @method('delete')
-                                    <input type="hidden" name="question_id" value="{{$question->question_id}}">
-                                    <button type="submit" class="btn btn-sm text-danger">Hapus</button>
-                                </form>
-                            </div>
-                        </div>
-
-                        {!!$answer->content!!}
-                    </div>
+                @foreach ($comments as $comment)
+                <div class="card-body">
+                    @if ($comment->comment_id == null)
+                        <p><span class="text-gray-700"><b>Tidak ada komentar</b></p>
+                        <hr>
+                    @else
+                        <p><span class="text-gray-700">{{$comment->user['name']}} mengomentari: <b>{!! $comment->content !!}</b></span></p>
+                        <br>
+                        <form action="/pertanyaan/{{$question->question_id}}/komentarpertanyaan" method="post" class="d-inline">
+                            @method('delete')
+                            @csrf
+                            <input type="hidden" name="comment_id" value="{{$comment->comment_id}}">
+                            <button type="submit" class="btn btn-danger">Hapus</button>
+                        </form>
+                        <hr>
+                    @endif
                 </div>
-                @empty
-                <div class="card bg-light mb-3">
-                    <div class="card-body" align="center">
-                        Belum ada jawaban
-                    </div>
-                </div>
-                @endforelse
-
-                <form action="/jawaban" method="POST">
-                    @csrf
-                    <input type="hidden" value="{{$question->question_id}}" name="question_id">
-
-                    <div class="form-group">
-                        <textarea name="content" id="isi"
-                            class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit Jawaban</button>
-                </form>
+                @endforeach
             </div>
         </div>
+
     </div>
 </div>
-</div>
-
-</div>
 @endsection
-
 
 @push('scripts')
 <script>
