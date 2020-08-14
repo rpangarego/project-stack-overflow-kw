@@ -8,6 +8,10 @@
 
 @foreach($questions as $question)
 
+@if($question->point['point']>=20)
+
+@endif
+
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary"><span class="text-gray-700">{{$question->user['name']}}:</span>

@@ -14,4 +14,8 @@ class Question extends Model
     public function comments() {
         return $this->hasMany('App\CommentQuestion');
     }
+
+    public function point() {
+        return $this->hasOne('App\UpvoteDownvoteQuestion', 'point');
+    }
 }
