@@ -32,6 +32,9 @@ Route::post('/pertanyaan/{pertanyaan}/komentarpertanyaan', 'ForumKomentarPertany
 Route::delete('/pertanyaan/{pertanyaan}/komentarpertanyaan', 'ForumKomentarPertanyaanController@destroy');
 Route::resource('jawaban', 'ForumJawabanController');
 
+Route::resource('komentarjawaban', 'ForumKomentarJawabanController');
+Route::get('/pertanyaan/{pertanyaan}/jawaban/{jawaban}/komentarjawaban', 'ForumKomentarJawabanController@show');
+
 Auth::routes();
 Route::get('/home' , 'HomeController@index')->name('home');
 

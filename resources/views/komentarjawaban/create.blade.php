@@ -1,27 +1,25 @@
 @extends('layouts.master')
 
 @section('title')
-<title>Stack Overflow</title>
+    <title>Stack Overflow</title>
 @endsection
 
 @push('script-head')
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 @endpush
 
 @section('content')
-<h3 class="text-center">Buat Komentar Pertanyaan</h3>
+<h3 class="text-center">Buat Komentar Jawaban</h3>
 <div class="container bg-white">
-    <form class="p-3" action="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan" method="POST">
+    <form class="p-3" action="/pertanyaan/{{ $question->question_id }}/komentarjawaban" method="POST">
         @csrf
         <input type="hidden" value="{{$question->question_id}}" name="question_id">
 
         <div class="form-group">
             <label for="content">Komentar</label>
-            <textarea name="content" id="isi"
-                class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
+            <textarea name="content" id="isi" class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
         </div>
         <div class="form-group">
-            <a href="/pertanyaan/{{$question->question_id}}/komentarpertanyaan" class="btn btn-secondary">Batal</a>
             <button type="submit" class="btn btn-primary">Buat Komentar</button>
         </div>
     </form>
