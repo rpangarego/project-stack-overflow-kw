@@ -25,11 +25,19 @@ Route::get('/pertanyaan', function () {
 });
 
 Route::resource('pertanyaan', 'ForumPertanyaanController');
-Route::resource('komentar', 'ForumKomentarController');
+Route::resource('komentarpertanyaan', 'ForumKomentarPertanyaanController');
+Route::get('/pertanyaan/{pertanyaan}/komentarpertanyaan', 'ForumKomentarPertanyaanController@show');
+Route::get('/pertanyaan/{pertanyaan}/komentarpertanyaan/create', 'ForumKomentarPertanyaanController@create');
+Route::post('/pertanyaan/{pertanyaan}/komentarpertanyaan', 'ForumKomentarPertanyaanController@store');
+Route::delete('/pertanyaan/{pertanyaan}/komentarpertanyaan', 'ForumKomentarPertanyaanController@destroy');
 Route::resource('jawaban', 'ForumJawabanController');
 
 Auth::routes();
 Route::get('/home' , 'HomeController@index')->name('home');
+
+// Routes Vote Pertanyaan
+Route::post('/upvote/pertanyaan', 'VotePertanyaanController@upvote');
+Route::post('/downvote/pertanyaan', 'VotePertanyaanController@downvote');
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();

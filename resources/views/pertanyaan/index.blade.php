@@ -14,17 +14,25 @@
             {{$question->title}}</h6>
     </div>
     <div class="card-body">
-        <div>
-            {{-- <p>Asked by {{$question->user['name']}}</p> --}}
-        </div>
-        <div class="buttons float-right">
+        <div class="buttons float-right row">
             {{-- upvote button --}}
-            <a href="#" class="btn btn-light btn-icon-split btn-sm mx-1">
-                <span class="icon text-white-50">
-                    <i class="fas fa-arrow-up"></i>
-                </span>
-                <span class="text">Upvote</span>
-            </a>
+            <form action="/upvote/pertanyaan" method="POST">
+                @csrf
+                <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                <input type="hidden" name="" value="{{$question->question_id}}">
+                <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span class="icon text-white-50">
+                        <i class="fas fa-arrow-up"></i>
+                    </span>
+                    <span class="text">Upvote</span></button>
+            </form>
+
+            {{-- <a href="/pertanyaan/{{$question->question_id}}" class="btn btn-light btn-icon-split btn-sm mx-1">
+            <span class="icon text-white-50">
+                <i class="fas fa-arrow-up"></i>
+            </span>
+            <span class="text">Upvote</span>
+            </a> --}}
+
             {{-- downvote button --}}
             <a href="#" class="btn btn-light btn-icon-split btn-sm mx-1">
                 <span class="icon text-white-50">
@@ -33,7 +41,7 @@
                 <span class="text">Downvote</span>
             </a>
             {{-- comment button --}}
-            <a href="#" class="btn btn-light btn-icon-split btn-sm mx-1">
+            <a href="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan" class="btn btn-light btn-icon-split btn-sm mx-1">
                 <span class="icon text-white-50">
                     <i class="far fa-comment"></i>
                 </span>
