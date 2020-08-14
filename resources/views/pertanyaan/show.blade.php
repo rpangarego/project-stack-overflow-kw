@@ -90,10 +90,6 @@
                     <input type="hidden" value="{{$question->question_id}}" name="question_id">
 
                     <div class="form-group">
-<<<<<<< HEAD
-=======
-
->>>>>>> 40532d9dea2ce5dd18ae99e4a4dafb7560e2d7c3
                         <textarea name="content" id="isi"
                             class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
                     </div>
