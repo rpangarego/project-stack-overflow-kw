@@ -10,7 +10,7 @@
 
 @section('content')
 <h3 class="text-center">Edit Jawaban</h3>
-<form action="" method="post">
+<form action="/pertanyaan/{{$questions->question_id}}" method="post">
     @csrf
     @method('put')
     <div class="form-group">

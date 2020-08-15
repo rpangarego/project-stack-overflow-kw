@@ -77,8 +77,9 @@ class ForumJawabanController extends Controller
     public function edit($id)
     {
         $answers = Answer::where('answer_id' , $id)->first();
+        $questions = Question::where('question_id', $id)->first();
         // dd($answers);
-        return view('jawaban.formedit' , compact('answers'));
+        return view('jawaban.formedit' , compact('answers', 'questions'));
     }
 
     /**

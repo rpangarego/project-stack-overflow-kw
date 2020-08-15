@@ -38,6 +38,7 @@ Route::get('/pertanyaan/{pertanyaan}/komentarpertanyaan/create', 'ForumKomentarP
 Route::post('/pertanyaan/{pertanyaan}/komentarpertanyaan', 'ForumKomentarPertanyaanController@store');
 Route::delete('/pertanyaan/{pertanyaan}/komentarpertanyaan', 'ForumKomentarPertanyaanController@destroy');
 Route::resource('jawaban', 'ForumJawabanController');
+Route::put('jawaban/{jawaban}', 'ForumJawabanController@update');
 Route::put('/jawabanTepat/{jawaban}', 'ForumJawabanController@correctAnswer');
 
 // Route Komentar
