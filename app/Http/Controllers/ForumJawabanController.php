@@ -77,7 +77,6 @@ class ForumJawabanController extends Controller
     public function edit($id){
         $questions = Question::where('question_id', $id)->first();
         $answers = Answer::where('answer_id' , $id)->first();
-        // dd($answers);
         return view('jawaban.formedit' , compact('answers', 'questions'));
     }
 
@@ -90,9 +89,8 @@ class ForumJawabanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $answers = Answer::where('answer_id' , $id);
-        $answers->content = $request["content"];
-        $answers->save();
+        $answers = Answer::where('answer_id' , $id)->update(['content' => $request["content"]]);;
+        Alert::success('Berhasil', 'Jawaban Berhasil Diedit');
         return redirect('/pertanyaan/'.$request["question_id"]);
     }
 
