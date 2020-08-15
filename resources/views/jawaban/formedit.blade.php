@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-<title>Edit Jawaban</title>
+  <title>Stack Overflow KW</title>
 @endsection
 
 @push('script-head')
