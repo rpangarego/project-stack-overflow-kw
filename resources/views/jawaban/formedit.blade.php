@@ -5,12 +5,12 @@
 @endsection
 
 @push('script-head')
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
 @endpush
 
 @section('content')
 <h3 class="text-center">Edit Jawaban</h3>
-<form action="/pertanyaan/{{$questions->question_id}}" method="post">
+<form action="/pertanyaan/{{$answers->answer_id}}" method="post">
     @csrf
     @method('put')
     <div class="form-group">

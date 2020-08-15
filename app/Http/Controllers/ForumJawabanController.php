@@ -74,10 +74,9 @@ class ForumJawabanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $answers = Answer::where('answer_id' , $id)->first();
+    public function edit($id){
         $questions = Question::where('question_id', $id)->first();
+        $answers = Answer::where('answer_id' , $id)->first();
         // dd($answers);
         return view('jawaban.formedit' , compact('answers', 'questions'));
     }
