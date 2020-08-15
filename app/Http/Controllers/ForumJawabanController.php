@@ -102,6 +102,7 @@ class ForumJawabanController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        $question = Question::where('question_id', $request['question_id'])->update(['correct_answer_id' => NULL]);
         $answers = Answer::where('answer_id' , $id)->delete();
         Alert::success('Berhasil', 'Jawaban Berhasil Dihapus');
         $link = '/pertanyaan/'.$request['question_id'];
