@@ -9,8 +9,8 @@
 @endpush
 
 @section('content')
-<h3 class="text-center">Edit Jawaban</h3>
-<form action="/pertanyaan/{{$questions->question_id}}" method="post">
+<h3 class="text-center">Ubah Jawaban</h3>
+<form action="/jawaban/{{$answers->answer_id}}" method="post">
     @csrf
     @method('put')
     <div class="form-group">
@@ -21,7 +21,7 @@
     </div>
     <div class="form-group">
         <a href="/pertanyaan" class="btn btn-secondary">Batal</a>
-        <button type="submit" class="btn btn-primary">Edit Pertanyaan</button>
+        <button type="submit" class="btn btn-primary">Ubah Jawaban</button>
     </div>
 </form>
 
