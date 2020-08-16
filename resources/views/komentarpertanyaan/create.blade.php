@@ -11,9 +11,9 @@
 @section('content')
 <h3 class="text-center">Buat Komentar Pertanyaan</h3>
 <div class="container bg-white">
-    <form class="p-3" action="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan" method="POST">
+    <form class="p-3" action="/pertanyaan/{{ $question->id }}/komentarpertanyaan" method="POST">
         @csrf
-        <input type="hidden" value="{{$question->question_id}}" name="question_id">
+        <input type="hidden" value="{{$question->id}}" name="question_id">
 
         <div class="form-group">
             <label for="content">Komentar</label>
@@ -21,7 +21,7 @@
                 class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>
         </div>
         <div class="form-group">
-            <a href="/pertanyaan/{{$question->question_id}}/komentarpertanyaan" class="btn btn-secondary">Batal</a>
+            <a href="/pertanyaan/{{$question->id}}/komentarpertanyaan" class="btn btn-secondary">Batal</a>
             <button type="submit" class="btn btn-primary">Buat Komentar</button>
         </div>
     </form>

@@ -28,8 +28,8 @@
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                         aria-labelledby="dropdownMenuLink">
                         <div class="dropdown-header">Aksi</div>
-                        <a class="dropdown-item" href="{{$question->question_id}}/edit">Ubah</a>
-                        <form action="/pertanyaan/{{$question->question_id}}" method="post" class="d-inline">
+                        <a class="dropdown-item" href="{{$question->id}}/edit">Ubah</a>
+                        <form action="/pertanyaan/{{$question->id}}" method="post" class="d-inline">
                             @method('delete')
                             @csrf
                             <button type="submit" class="dropdown-item text-danger">Hapus</button>
@@ -50,7 +50,7 @@
                         {{-- upvote button --}}
                         <form action="/upvote/pertanyaan" method="POST">
                             @csrf
-                            <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                            <input type="hidden" name="question_id" value="{{$question->id}}">
                             <input type="hidden" name="user_id" value="{{$question->user['id']}}">
                             <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span
                                     class="icon text-white-50">
@@ -61,7 +61,7 @@
                         {{-- downvote button --}}
                         <form action="/downvote/pertanyaan" method="POST">
                             @csrf
-                            <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                            <input type="hidden" name="question_id" value="{{$question->id}}">
                             <input type="hidden" name="user_id" value="{{$question->user['id']}}">
                             <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span
                                     class="icon text-white-50">
@@ -70,7 +70,7 @@
                                 <span class="text">Downvote</span></button>
                         </form>
                         {{-- comment button --}}
-                        <a href="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan/create"
+                        <a href="/pertanyaan/{{ $question->id }}/komentarpertanyaan/create"
                             class="btn btn-light btn-icon-split btn-sm mx-1">
                             <span class="icon text-white-50">
                                 <i class="far fa-comment"></i>
@@ -79,7 +79,7 @@
                         </a>
                     </div>
                 </div>
-                <a href="/pertanyaan/{{ $question->question_id }}" class="d-block"> &larr; Kembali</a>
+                <a href="/pertanyaan/{{ $question->id }}" class="d-block"> &larr; Kembali</a>
 
                 <hr>
                 {{-- form jawaban --}}
@@ -97,11 +97,11 @@
                             @auth
                             @if ($comment->user_id == Auth::user()->id)
                             <div class="delete-button">
-                                <form action="/pertanyaan/{{$question->question_id}}/komentarpertanyaan" method="post"
+                                <form action="/pertanyaan/{{$question->id}}/komentarpertanyaan" method="post"
                                     class="d-inline">
                                     @csrf
                                     @method('delete')
-                                    <input type="hidden" name="comment_id" value="{{$comment->comment_id}}">
+                                    <input type="hidden" name="comment_id" value="{{$comment->id}}">
                                     <button type="submit" class="btn btn-sm text-danger">Hapus</button>
                                 </form>
                             </div>

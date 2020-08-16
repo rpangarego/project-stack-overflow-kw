@@ -66,7 +66,7 @@ class ForumPertanyaanController extends Controller
      */
     public function show($id)
     {
-        $question = Question::where('question_id', $id)->first();
+        $question = Question::find($id);
         $answers = Answer::where('question_id', $id)->get();
         $voteQuestions = UpvoteDownvoteQuestion::all();
         return view('pertanyaan.show', compact('question' , 'answers', 'voteQuestions'));
@@ -80,7 +80,7 @@ class ForumPertanyaanController extends Controller
      */
     public function edit($id)
     {
-        $question = Question::where('question_id', $id)->first();
+        $question = Question::find($id);
         return view('pertanyaan.edit', compact('question'));
     }
 
@@ -99,7 +99,7 @@ class ForumPertanyaanController extends Controller
         ]);
 
         $question = DB::table('questions')
-              ->where('question_id', $id)
+              ->where('id', $id)
               ->update([
                   'title' => $request->title,
                   'content' => $request->content
@@ -121,7 +121,7 @@ class ForumPertanyaanController extends Controller
         $upvotedownvote = UpvoteDownvoteQuestion::where('question_id' , $id)->delete();
         $commentquestion = CommentQuestion::where('question_id' , $id)->delete();
         $answer = Answer::where('question_id' , $id)->delete();
-        $question = Question::where('question_id', $id)->delete();
+        $question = Question::where('id', $id)->delete();
 
         Alert::success('Berhasil', 'Hapus Pertanyaan Berhasil');
 

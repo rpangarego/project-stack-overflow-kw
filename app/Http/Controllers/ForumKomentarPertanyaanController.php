@@ -33,7 +33,7 @@ class ForumKomentarPertanyaanController extends Controller
      */
     public function create($id)
     {
-        $question = Question::where('question_id', $id)->first();
+        $question = Question::find($id);
         return view('komentarpertanyaan.create', compact('question'));
     }
 
@@ -45,7 +45,7 @@ class ForumKomentarPertanyaanController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $question = Question::where('question_id', $id)->first();
+        $question = Question::find($id);
 
         $comment = new CommentQuestion();
         $comment->content = $request["content"];
@@ -68,32 +68,9 @@ class ForumKomentarPertanyaanController extends Controller
      */
     public function show($id)
     {
-        $question = Question::where('question_id', $id)->first();
+        $question = Question::find($id);
         $comments = CommentQuestion::where('question_id', $id)->get();
         return view('komentarpertanyaan.show', compact('question', 'comments'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
@@ -104,12 +81,9 @@ class ForumKomentarPertanyaanController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $comment = CommentQuestion::where('comment_id', $request['comment_id'])->delete();
-
+        $comment = CommentQuestion::where('id', $request['comment_id'])->delete();
         Alert::success('Berhasil', 'Hapus Komentar Berhasil');
-
         $link = "/pertanyaan/".$request["question_id"];
-
         return redirect($link);
     }
 }

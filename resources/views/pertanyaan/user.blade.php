@@ -19,8 +19,8 @@
             {{-- upvote button --}}
             <form action="/upvote/pertanyaan" method="POST">
                 @csrf
-                <input type="hidden" name="question_id" value="{{$question->question_id}}">
-                <input type="hidden" name="" value="{{$question->question_id}}">
+                <input type="hidden" name="question_id" value="{{$question->id}}">
+                <input type="hidden" name="" value="{{$question->id}}">
                 <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span class="icon text-white-50">
                         <i class="fas fa-arrow-up"></i>
                     </span>
@@ -29,15 +29,15 @@
             {{-- downvote button --}}
             <form action="/downvote/pertanyaan" method="POST">
                 @csrf
-                <input type="hidden" name="question_id" value="{{$question->question_id}}">
-                <input type="hidden" name="" value="{{$question->question_id}}">
+                <input type="hidden" name="question_id" value="{{$question->id}}">
+                <input type="hidden" name="" value="{{$question->id}}">
                 <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1"><span class="icon text-white-50">
                         <i class="fas fa-arrow-down"></i>
                     </span>
                     <span class="text">Downvote</span></button>
             </form>
             {{-- comment button --}}
-            <a href="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan"
+            <a href="/pertanyaan/{{ $question->id }}/komentarpertanyaan"
                 class="btn btn-light btn-icon-split btn-sm mx-1">
                 <span class="icon text-white-50">
                     <i class="far fa-comment"></i>
@@ -46,7 +46,7 @@
             </a>
         </div>
 
-        <a href="{{route('pertanyaan.show', ['pertanyaan' => $question->question_id])}}">Lihat lebih banyak
+        <a href="{{route('pertanyaan.show', ['pertanyaan' => $question->id])}}">Lihat lebih banyak
             &rarr;</a>
     </div>
 </div>

@@ -29,16 +29,6 @@ class ForumJawabanController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -58,25 +48,16 @@ class ForumJawabanController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
-        $questions = Question::where('question_id', $id)->first();
-        $answers = Answer::where('answer_id' , $id)->first();
+        // $questions = Question::where('question_id', $id)->first();
+        // $answers = Answer::where('answer_id' , $id)->first();
+        $questions = Question::find($id);
+        $answers = Answer::find();
         return view('jawaban.formedit' , compact('answers', 'questions'));
     }
 
@@ -89,7 +70,7 @@ class ForumJawabanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $answers = Answer::where('answer_id' , $id)->update(['content' => $request["content"]]);;
+        $answers = Answer::where('id' , $id)->update(['content' => $request["content"]]);;
         Alert::success('Berhasil', 'Jawaban Berhasil Diedit');
         return redirect('/pertanyaan/'.$request["question_id"]);
     }
@@ -102,8 +83,8 @@ class ForumJawabanController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $question = Question::where('question_id', $request['question_id'])->update(['correct_answer_id' => NULL]);
-        $answers = Answer::where('answer_id' , $id)->delete();
+        $question = Question::where('id', $request['question_id'])->update(['correct_answer_id' => NULL]);
+        $answers = Answer::where('id' , $id)->delete();
         Alert::success('Berhasil', 'Jawaban Berhasil Dihapus');
         $link = '/pertanyaan/'.$request['question_id'];
         return redirect($link);
@@ -111,7 +92,7 @@ class ForumJawabanController extends Controller
 
     public function correctAnswer(Request $request, $answer_id){
         // input id jawaban tepat
-        $question = Question::where('question_id', $request['question_id'])->update(['correct_answer_id' =>  $answer_id]);
+        $question = Question::where('id', $request['question_id'])->update(['correct_answer_id' =>  $answer_id]);
 
         // menambahkan 15 point ke user yg bertanya
         $user = User::find($request["user_id"]);

@@ -14,15 +14,6 @@ class ForumKomentarJawabanController extends Controller
     public function __construct(){
         $this->middleware('auth')->except(['index','show']);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -31,7 +22,7 @@ class ForumKomentarJawabanController extends Controller
      */
     public function create($id)
     {
-        $answer = Answer::where('answer_id', $id)->first();
+        $answer = Answer::find($id);
         return view('komentarjawaban.create', compact('answer'));
     }
 
@@ -43,7 +34,7 @@ class ForumKomentarJawabanController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $answer = Answer::where('answer_id', $id)->first();
+        $answer = Answer::find($id);
 
         $comment = new CommentAnswer();
         $comment->content = $request["content"];
@@ -52,9 +43,7 @@ class ForumKomentarJawabanController extends Controller
         $comment->save();
 
         Alert::success('Berhasil', 'Buat Komentar Berhasil');
-
-        $link = "/pertanyaan/".$request["question_id"]."/komentarpertanyaan";
-
+        $link = '/pertanyaan/'.$request["question_id"].'/komentarpertanyaan';
         return redirect($link);
     }
 
@@ -66,42 +55,8 @@ class ForumKomentarJawabanController extends Controller
      */
     public function show($id)
     {
-        $answer = Answer::where('question_id', $id)->first();
+        $answer = Answer::find($id);
         $comments = CommentAnswer::where('question_id', $id)->get();
         return view('komentarjawaban.show', compact('answer', 'comments'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

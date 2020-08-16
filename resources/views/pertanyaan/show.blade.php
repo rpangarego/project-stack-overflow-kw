@@ -29,8 +29,8 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                 <div class="dropdown-header">Aksi</div>
-                <a class="dropdown-item" href="{{$question->question_id}}/edit">Ubah</a>
-                <form action="/pertanyaan/{{$question->question_id}}" method="post" class="d-inline">
+                <a class="dropdown-item" href="{{$question->id}}/edit">Ubah</a>
+                <form action="/pertanyaan/{{$question->id}}" method="post" class="d-inline">
                     @method('delete')
                     @csrf
                     <button type="submit" class="dropdown-item text-danger">Hapus</button>
@@ -51,10 +51,10 @@
                 {{-- upvote button --}}
                 <form action="/upvote/pertanyaan" method="POST">
                     @csrf
-                    <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                    <input type="hidden" name="question_id" value="{{$question->id}}">
                     <input type="hidden" name="user_id" value="{{$question->user['id']}}">
                     <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1" @foreach ($voteQuestions as
-                        $vote) @if ($question->question_id == $vote->question_id && $vote->user_id == Auth::id() &&
+                        $vote) @if ($question->id == $vote->question_id && $vote->user_id == Auth::id() &&
                         $vote->point == 1)
                         disabled
                         @endif
@@ -71,7 +71,7 @@
                     <input type="hidden" name="question_id" value="{{$question->question_id}}">
                     <input type="hidden" name="user_id" value="{{$question->user['id']}}">
                     <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1" @foreach ($voteQuestions as
-                        $vote) @if ($question->question_id == $vote->question_id && $vote->user_id == Auth::id() &&
+                        $vote) @if ($question->id == $vote->question_id && $vote->user_id == Auth::id() &&
                         $vote->point == 0)
                         disabled
                         @endif
@@ -81,7 +81,7 @@
                         <span class="text">Downvote</span></button>
                 </form>
                 {{-- comment button --}}
-                <a href="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan"
+                <a href="/pertanyaan/{{ $question->id }}/komentarpertanyaan"
                     class="btn btn-light btn-icon-split btn-sm mx-1">
                     <span class="icon text-white-50">
                         <i class="far fa-comment"></i>
@@ -99,7 +99,7 @@
         </h6>
 
         @forelse ($answers as $answer)
-        @if ($question->correct_answer_id == $answer->answer_id)
+        @if ($question->correct_answer_id == $answer->id)
         <div class="card border-left-info shadow mb-4">
             @else
             <div class="card shadow mb-4">
@@ -114,10 +114,10 @@
                         <div class="delete-button">
                             @if ($question->correct_answer_id == null)
                             @if ($question->user_id == Auth::user()->id)
-                            <form action="/jawabanTepat/{{$answer->answer_id}}" method="post" class="d-inline">
+                            <form action="/jawabanTepat/{{$answer->id}}" method="post" class="d-inline">
                                 @csrf
                                 @method('put')
-                                <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                                <input type="hidden" name="question_id" value="{{$question->id}}">
                                 <input type="hidden" name="user_id" value="{{$answer->user_id}}">
                                 <button type="submit" class="btn btn-sm text-info">Jawaban Tepat</button>
                             </form>
@@ -125,11 +125,11 @@
                             @endif
 
                             @if ($answer->user_id == Auth::user()->id)
-                            <a href="/jawaban/{{$answer->answer_id}}/edit" class="btn btn-sm text-primary">Edit</a>
-                            <form action="/jawaban/{{$answer->answer_id}}" method="post" class="d-inline">
+                            <a href="/jawaban/{{$answer->id}}/edit" class="btn btn-sm text-primary">Edit</a>
+                            <form action="/jawaban/{{$answer->id}}" method="post" class="d-inline">
                                 @csrf
                                 @method('delete')
-                                <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                                <input type="hidden" name="question_id" value="{{$question->id}}">
                                 <button type="submit" class="btn btn-sm text-danger">Hapus</button>
                             </form>
                             @endif
@@ -149,7 +149,7 @@
 
             <form action="/jawaban" method="POST">
                 @csrf
-                <input type="hidden" value="{{$question->question_id}}" name="question_id">
+                <input type="hidden" value="{{$question->id}}" name="question_id">
                 <div class="form-group">
                     <textarea name="content" id="isi"
                         class="form-control my-editor">{!! old('content', $content ?? '') !!}</textarea>

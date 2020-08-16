@@ -17,10 +17,10 @@
             {{-- upvote button --}}
             <form action="/upvote/pertanyaan" method="POST">
                 @csrf
-                <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                <input type="hidden" name="question_id" value="{{$question->id}}">
                 <input type="hidden" name="user_id" value="{{$question->user['id']}}">
                 <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1" @foreach ($voteQuestions as
-                    $vote) @if ($question->question_id == $vote->question_id && $vote->user_id == Auth::id() &&
+                    $vote) @if ($question->id == $vote->question_id && $vote->user_id == Auth::id() &&
                     $vote->point == 1)
                     disabled
                     @endif
@@ -34,10 +34,10 @@
             {{-- downvote button --}}
             <form action="/downvote/pertanyaan" method="POST">
                 @csrf
-                <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                <input type="hidden" name="question_id" value="{{$question->id}}">
                 <input type="hidden" name="user_id" value="{{$question->user['id']}}">
                 <button type="submit" class="btn btn-light btn-icon-split btn-sm mx-1" @foreach ($voteQuestions as
-                    $vote) @if ($question->question_id == $vote->question_id && $vote->user_id == Auth::id() &&
+                    $vote) @if ($question->id == $vote->question_id && $vote->user_id == Auth::id() &&
                     $vote->point == 0)
                     disabled
                     @endif
@@ -47,7 +47,7 @@
                     <span class="text">Downvote</span></button>
             </form>
             {{-- comment button --}}
-            <a href="/pertanyaan/{{ $question->question_id }}/komentarpertanyaan"
+            <a href="/pertanyaan/{{ $question->id }}/komentarpertanyaan"
                 class="btn btn-light btn-icon-split btn-sm mx-1">
                 <span class="icon text-white-50">
                     <i class="far fa-comment"></i>
@@ -56,7 +56,7 @@
             </a>
         </div>
 
-        <a href="{{route('pertanyaan.show', ['pertanyaan' => $question->question_id])}}">Lihat lebih banyak
+        <a href="{{route('pertanyaan.show', ['pertanyaan' => $question->id])}}">Lihat lebih banyak
             &rarr;</a>
     </div>
 </div>

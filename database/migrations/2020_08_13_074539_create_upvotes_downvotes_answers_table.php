@@ -21,8 +21,8 @@ class CreateUpvotesDownvotesAnswersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
 
             $table->unsignedBigInteger('answer_id');
-            $table->foreign('answer_id')->references('answer_id')->on('answers');
-            
+            $table->foreign('answer_id')->references('id')->on('answers');
+
             $table->timestamps();
         });
     }

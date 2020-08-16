@@ -34,28 +34,21 @@ class VotePertanyaanController extends Controller
     }
 
     public function downvote(Request $request){
-
-        $vote = UpvoteDownvoteQuestion::updateOrCreate(
-        ['user_id' => Auth::id(), 'question_id' => $request["question_id"]],
-        ['point' => 0]);
-
         // cek poin reputasi user
         $user = User::find(Auth::id());
-        // dd($user);
         if ($user->reputation_point < 15) {
             Alert::error('Gagal', 'Minimal reputasi point 15 untuk melakukan downvote');
             $link = "/pertanyaan/".$request["question_id"];
-            return redirect($link);
-            exit();
+        }else{
+            // mengurangi 1 point ke user yg memberikan downvote
+            $user = User::find(Auth::id());
+            $user["reputation_point"] = $user->reputation_point - 1;
+            $user->save();
+
+            Alert::success('Berhasil', 'Downvote berhasil');
+            $link = "/pertanyaan/".$request["question_id"];
+
         }
-
-        // mengurangi 1 point ke user yg memberikan downvote
-        $user = User::find(Auth::id());
-        $user["reputation_point"] = $user->reputation_point - 1;
-        $user->save();
-
-        Alert::success('Berhasil', 'Downvote berhasil');
-        $link = "/pertanyaan/".$request["question_id"];
-        return redirect($link);
+    return redirect($link);
     }
 }

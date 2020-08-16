@@ -45,14 +45,13 @@ Route::put('/jawabanTepat/{jawaban}', 'ForumJawabanController@correctAnswer');
 Route::resource('komentarjawaban', 'ForumKomentarJawabanController');
 Route::get('/pertanyaan/{pertanyaan}/jawaban/{jawaban}/komentarjawaban', 'ForumKomentarJawabanController@show');
 
+// Route Auth
 Auth::routes();
 Route::get('/home' , 'HomeController@index')->name('home');
 
 // Route Vote Pertanyaan
 Route::post('/upvote/pertanyaan', 'VotePertanyaanController@upvote');
 Route::post('/downvote/pertanyaan', 'VotePertanyaanController@downvote');
-
-
 
 // Route Middleware Laravel File Manager
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

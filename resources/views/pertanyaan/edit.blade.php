@@ -11,7 +11,7 @@
 @section('content')
 <h3 class="text-center">Ubah Pertanyaan</h3>
 <div class="container bg-white">
-    <form class="p-3" action="/pertanyaan/{{$question->question_id}}" method="POST">
+    <form class="p-3" action="/pertanyaan/{{$question->id}}" method="POST">
         @method('patch')
         @csrf
         <div class="form-group">
